@@ -1,32 +1,28 @@
 // firebase-config.js
-// Mi-Vault Firebase configuration and helpers
-// ------------------------------------------
-// Replace every “YOUR_…” placeholder with the real values
-// from your Firebase project settings.
 
+// Import the functions you need from the SDKs
 import { initializeApp } from "firebase/app";
-import { getAuth }       from "firebase/auth";
-import { getFirestore }  from "firebase/firestore";
-import { getStorage }    from "firebase/storage";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
-/* ――― 1) CORE CONFIG ――― */
+// Your Firebase configuration
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
   messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  appId: "YOUR_APP_ID"
 };
 
-/* ――― 2) INITIALISE APP & SERVICES ――― */
-const app     = initializeApp(firebaseConfig);
-const auth    = getAuth(app);        // user / admin login
-const db      = getFirestore(app);   // vault metadata & links
-const storage = getStorage(app);     // file uploads
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-/* ――― 3) ADMIN MASTER PASSWORD (edit if you change it) ――― */
-export const ADMIN_PASSWORD = "Admin@200998";  // case-sensitive
+// Define the admin password here
+const ADMIN_PASSWORD = "faka@200998";
 
-/* ――― 4) EXPORT EVERYTHING NEEDED ELSEWHERE ――― */
-export { app, auth, db, storage };
+// Export the necessary parts
+export { app, auth, db, ADMIN_PASSWORD };
