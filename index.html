@@ -1,62 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome Admin 📁</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private Folder</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
+      background-color: #111;
       color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      margin: 0;
     }
+
     .box {
       background-color: #1e1e1e;
-      padding: 25px 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px #000;
       text-align: center;
       width: 90%;
-      max-width: 400px;
+      max-width: 350px;
     }
+
     h2 {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
-    .list {
-      list-style: none;
+
+    p {
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
       padding: 0;
       text-align: left;
-      margin-top: 20px;
     }
-    .list li {
-      margin: 15px 0;
-      font-size: 18px;
-    }
-    .list a {
-      text-decoration: none;
-      color: #58a6ff;
-      font-weight: bold;
+
+    li {
+      margin: 10px 0;
       display: flex;
       align-items: center;
+      font-size: 16px;
     }
-    .list a:hover {
-      color: #a2d2ff;
-    }
-    .icon {
+
+    li img {
+      width: 20px;
       margin-right: 10px;
-      font-size: 20px;
+    }
+
+    a {
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="box">
-    <h2>Welcome, Admin 👋</h2>
-    <p>📁 Photos, Videos, Documents below:</p>
-    <ul class="list">
-      <li><a href="Photos/"
+    <h2>Welcome, Admin 🫴</h2>
+    <p>Photos, Videos, Documents below:</p>
+    <ul>
+      <li><img src="https://img.icons8.com/ios/50/ffffff/image.png"/><a href="Photos/">Photos</a></li>
+      <li><img src="https://img.icons8.com/ios/50/ffffff/video.png"/><a href="Videos/">Videos</a></li>
+      <li><img src="https://img.icons8.com/ios/50/ffffff/document--v1.png"/><a href="Documents/">Documents</a></li>
+    </ul>
+  </div>
+</body>
+</html>
