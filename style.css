@@ -1,149 +1,64 @@
-/* -------------------------------------------------
-   Mi-Vault  ⚡  Unified stylesheet
-   Combines your existing CSS + new requirements
--------------------------------------------------- */
-
-/* ===== 1. Theme variables ===== */
-:root {
-  --chelsea-blue: #014aad;          /* main Chelsea blue */
-  --blue-dark: #001f3f;             /* deeper accent */
-  --accent-cyan: #00bfff;           /* glow / focus */
-  --danger-red: #f44336;            /* buttons + errors */
-  --bg-dark: #0d1117;               /* dark mode surface */
-  --text-light: #f0f0f0;            /* primary text */
-  --text-muted: #cccccc;            /* secondary text */
-  --border-radius: 8px;
-  --transition: 0.25s ease;
-}
-
-/* ===== 2. Global reset & layout ===== */
-*,
-*::before,
-*::after {
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
+/* Body Styling */
 body {
-  background-color: var(--chelsea-blue);
-  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #003366; /* Chelsea Blue */
+  color: #f0f0f0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
   padding: 20px;
 }
 
-/* Auto-switch for OS dark-mode preference (keeps Chelsea blue tint) */
-@media (prefers-color-scheme: dark) {
-  body { background-color: var(--bg-dark); }
-}
-
-/* ===== 3. Headings & text ===== */
+/* Headings */
 h1 {
   font-size: 2em;
   margin-bottom: 10px;
-  color: var(--accent-cyan);
+  color: #58a6ff;
 }
 
-p { font-size: 1.1em; }
-
-/* ===== 4. Container alignment (existing) ===== */
-.container { margin-top: 100px; }
-/* Center everything on small screens */
-@media (max-width: 480px) {
-  .container { margin-top: 60px; }
+/* Paragraphs */
+p {
+  font-size: 1.1em;
 }
 
-/* ===== 5. Login box & password visibility toggle ===== */
-.login-image {
-  width: 200px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px var(--accent-cyan);
-}
-
-.login-box { margin-top: 20px; }
-
-input[type="password"],
-input[type="text"] {
-  padding: 10px;
-  width: 250px;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-}
-
-.password-box {
-  position: relative;
-  width: 250px;
-  margin: 0 auto;
-}
-
-.password-box input { width: 100%; padding-right: 40px; }
-
-.eye-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
+/* Details Summary */
+details summary {
   cursor: pointer;
-  user-select: none;
-  color: var(--text-muted);
-  transition: color var(--transition);
-}
-.eye-icon:hover { color: var(--accent-cyan); }
-
-/* ===== 6. Primary button style ===== */
-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #0074d9;        /* brighter than Chelsea blue */
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #0074d9;
-  transition: background-color var(--transition);
-}
-button:hover { background-color: #005fa3; }
-
-/* ===== 7. Thin separators & footer ===== */
-.separator-line {
-  width: 80%;
-  height: 1px;
-  background: var(--text-muted);
-  margin: 30px auto;
+  margin: 20px 0 10px;
+  font-weight: bold;
 }
 
-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9em;
-  color: var(--text-muted);
+details ol {
+  padding-left: 20px;
 }
 
-/* ===== 8. Custom pop-up (wrong password, etc.) ===== */
-.modal.hidden { display: none; }
+/* Modal Styling */
+.modal.hidden {
+  display: none;
+}
 
 .modal {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
+
 .modal-content {
   background-color: #161b22;
   padding: 30px;
@@ -153,90 +68,141 @@ footer {
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
   max-width: 300px;
 }
-.modal-content img { width: 100px; margin-bottom: 20px; }
+
+.modal-content img {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
 .modal-content p {
   margin: 10px 0;
   font-weight: bold;
   font-size: 1.2em;
-  color: var(--danger-red);
+  color: red;
 }
 
 .modal-close {
   padding: 10px 20px;
-  background-color: var(--danger-red);
+  background-color: #f44336;
   border: none;
   border-radius: 5px;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color var(--transition);
+  transition: background-color 0.3s;
 }
-.modal-close:hover { background-color: #d32f2f; }
 
-/* ===== 9. Loading / Zoro GIF ===== */
+.modal-close:hover {
+  background-color: #d32f2f;
+}
+
+/* Footer Styling */
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+/* Loading Overlay */
 .loading-overlay {
   position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.7);
-  z-index: 10000;
-}
-.zoro-gif {
-  width: 160px;
-  height: 160px;
-  background: url('./assets/zoro.gif') center/contain no-repeat;
-}
-
-/* ===== 10. Folder-style vault grid (Android-like) ===== */
-.vault-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 900px;
-  margin: 40px auto;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
-.folder-item {
-  background: #161b22;
-  border-radius: var(--border-radius);
-  padding: 20px 10px;
+
+.zoro-gif {
+  width: 120px;
+  height: 120px;
+  background-image: url("assets/zoro.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Hidden Class */
+.hidden {
+  display: none;
+}
+
+/* Container */
+.container {
   text-align: center;
-  color: var(--text-light);
+  padding: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Login Image */
+.login-image {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* Password Box */
+.password-box {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 20px auto;
+}
+
+.password-box input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Eye Icon */
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition);
-  box-shadow: 0 0 6px rgba(0,0,0,0.4);
-}
-.folder-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 12px var(--accent-cyan);
-}
-.folder-icon {
-  width: 48px; height: 48px;
-  margin-bottom: 8px;
-  background: url('./assets/folder.svg') center/contain no-repeat;
 }
 
-/* ===== 11. File-upload drag-drop zone ===== */
-.upload-zone {
-  border: 2px dashed var(--text-muted);
-  border-radius: var(--border-radius);
-  padding: 40px;
-  text-align: center;
-  transition: border-color var(--transition), background-color var(--transition);
-}
-.upload-zone.dragover {
-  border-color: var(--accent-cyan);
-  background-color: rgba(0, 191, 255, 0.1);
+/* Login Button */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
 }
 
-/* ===== 12. Utility (hide / show) ===== */
-.hidden { display: none !important; }
-.fade-in {
-  animation: fadeIn 0.4s ease forwards;
+button:hover {
+  background-color: #0056b3;
 }
+
+/* Separator Line */
+.separator-line {
+  margin-top: 40px;
+  width: 90%;
+  border-top: 1px solid white;
+}
+
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
