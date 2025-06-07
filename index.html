@@ -5,171 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi-Vault</title>
 
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  <!-- —— Fonts & Icons —— -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-HYBQ…" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDFNU8yzBvE9m6-cf8Xj6AIqZ5cokMBXm8",
-      authDomain: "mi-vault-project.firebaseapp.com",
-      projectId: "mi-vault-project",
-      storageBucket: "mi-vault-project.appspot.com",
-      messagingSenderId: "206788272282",
-      appId: "1:206788272282:web:4a527f18cf79fef44597a2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Sign-up
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("signup-btn").addEventListener("click", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        createUserWithEmailAndPassword(auth, email, password)
-          .then(() => {
-            alert("Signup successful!");
-            window.location.href = "dashboard.html";
-          })
-          .catch((error) => {
-            alert("Error: " + error.message);
-          });
-      });
-
-      // Login
-      document.getElementById("login-btn").addEventListener("click", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        signInWithEmailAndPassword(auth, email, password)
-          .then(() => {
-            alert("Login successful!");
-            window.location.href = "dashboard.html";
-          })
-          .catch((error) => {
-            alert("Error: " + error.message);
-          });
-      });
-
-      // Toggle password visibility
-      document.getElementById("togglePassword").addEventListener("click", function () {
-        const passwordInput = document.getElementById("password");
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-        this.textContent = type === "password" ? "👁️" : "🙈";
-      });
-    });
-  </script>
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #014aad; /* Chelsea blue */
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-
-    .form-box {
-      background-color: #1c1c1c;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      width: 90%;
-      max-width: 350px;
-      text-align: center;
-      color: white;
-    }
-
-    .form-box h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: white;
-    }
-
-    .form-box button {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .form-box button:hover {
-      background-color: #0056b3;
-    }
-
-    #togglePassword {
-      cursor: pointer;
-      position: absolute;
-      right: 30px;
-      margin-top: -35px;
-      color: #aaa;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    img.logo {
-      width: 150px;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px cyan;
-    }
-
-    .bottom-lines {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      padding: 10px;
-      color: white;
-      font-size: 0.9em;
-      border-top: 1px solid white;
-    }
-  </style>
+  <!-- —— Main Styles —— -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <img src="ninja.png" alt="Mi-Vault Logo" class="logo" />
-  
-  <div class="form-box">
-    <h2>Mi-Vault Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    
-    <div class="password-box">
-  <input type="password" id="password" placeholder="Enter Password" />
-  <span class="eye-icon" onclick="togglePassword()">👁️</span>
-</div>
-    
-    <button id="login-btn">Login</button>
-    <button id="signup-btn">Sign Up</button>
+  <!-- ——— Loader (Zoro GIF) ——— -->
+  <div id="loader" class="loader hidden">
+    <img src="assets/zoro-loader.gif" alt="Loading…" />
   </div>
 
-  <div class="bottom-lines">
-    This site is secret
+  <!-- ——— Login Card ——— -->
+  <main class="login-card">
+    <h1 class="app-title">Mi-Vault</h1>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="password-box">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          minlength="8"
+          required
+        />
+        <i class="fa-solid fa-eye eye-icon" id="togglePassword" aria-label="Show / hide password"></i>
+      </div>
+
+      <button type="submit" class="login-btn">Unlock Vault</button>
+    </form>
+
+    <!-- — Password rules hint (tap - optional) — -->
+    <details class="rules">
+      <summary>Password rules</summary>
+      <ol>
+        <li>At least <strong>8 characters</strong></li>
+        <li>Include <strong>3 of 4</strong>: uppercase, lowercase, number, special char</li>
+        <li>Must <strong>not</strong> contain “123” or “admin” (case-insensitive)</li>
+        <li>No 4 × repeated chars (<code>aaaa</code>, <code>1111</code>) or sequential digits (<code>1234</code>, <code>4321</code>)</li>
+      </ol>
+    </details>
+  </main>
+
+  <!-- ——— Wrong-password Pop-up (Luffy) ——— -->
+  <div id="errorModal" class="modal hidden" role="alert">
+    <div class="modal-content">
+      <img src="assets/luffy-alert.png" alt="Wrong password!" />
+      <p>✖️Wrong Bitch! Leave✖️</p>
+      <button id="closeError" class="modal-close">Try again</button>
+    </div>
   </div>
 
+  <!-- ——— Footer ——— -->
+  <footer>
+    <hr class="thin-line" />
+    <hr class="thin-line" />
+    <p>© Mi-Vault. All rights reserved.</p>
+  </footer>
+
+  <!-- ——— Script ——— -->
+  <script src="script.js" defer></script>
 </body>
 </html>
