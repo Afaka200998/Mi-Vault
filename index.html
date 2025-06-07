@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Private Storage</title>
+  <title>Private Site</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
       background: #121212;
-      color: white;
+      font-family: sans-serif;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    .box {
+    .container {
       background: #1e1e1e;
       padding: 2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       width: 90%;
       max-width: 400px;
@@ -30,14 +30,14 @@
       padding: 10px;
       width: 100%;
       margin-top: 1rem;
-      border: none;
       border-radius: 6px;
+      border: none;
     }
 
     button {
-      margin-top: 1rem;
       padding: 10px;
       width: 100%;
+      margin-top: 1rem;
       background: #4caf50;
       color: white;
       border: none;
@@ -45,42 +45,45 @@
       cursor: pointer;
     }
 
-    .hidden {
+    #mainContent {
       display: none;
+      padding: 2rem;
+      text-align: center;
     }
 
     a {
       color: #80d4ff;
-      display: block;
-      margin: 10px 0;
-      word-break: break-all;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="box" id="loginBox">
-    <h2>Password Required</h2>
-    <input type="password" id="passwordInput" placeholder="Enter password" />
+  <!-- Password Screen -->
+  <div class="container" id="loginBox">
+    <h2>Enter Password</h2>
+    <input type="password" id="passwordInput" placeholder="Enter site password" />
     <button onclick="checkPassword()">Unlock</button>
   </div>
 
-  <div class="box hidden" id="contentBox">
-    <h2>Private Files</h2>
-    <p>Only visible after password</p>
-    <a href="Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
-    <!-- Add more links here -->
+  <!-- Hidden Main Content -->
+  <div id="mainContent">
+    <h1>🎉 Welcome to Secret</h1>
+    <p>This is hidden until the correct password is entered.</p>
+    <a href="videos/Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
+    <!-- Add more private content here -->
   </div>
 
   <script>
     function checkPassword() {
-      const correct = "Admin@200998";
+      const correctPassword = "faka@200998";
       const input = document.getElementById("passwordInput").value;
-      if (input === correct) {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("contentBox").classList.remove("hidden");
+
+      if (input === correctPassword) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
       } else {
-        alert("Incorrect password!");
+        alert("❌ Wrong password!");
       }
     }
   </script>
