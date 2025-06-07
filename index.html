@@ -1,114 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Private</title>
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(to bottom, #034694, #051d40); /* Chelsea Blue */
-      font-family: "Segoe UI", sans-serif;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Private Files</title>
 
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-      max-width: 90%;
-      width: 320px;
-    }
+<style>
+  /* ===== Chelsea-Blue full-page background ===== */
+  body{
+    margin:0;
+    /* solid blue - change tint any time */
+    background:#034694;
+    font-family:"Segoe UI",sans-serif;
+    color:#fff;
+    display:flex;           /* centre the card */
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+  }
 
-    .logo {
-      width: 60px;
-      margin-bottom: 1rem;
-    }
+  /* ===== black rounded login card ===== */
+  .container{
+    background:#000;        /* solid black */
+    padding:2rem;
+    border-radius:15px;
+    width:90%;
+    max-width:330px;
+    box-shadow:0 0 18px rgba(0,0,0,.7);
+  }
 
-    input[type="password"] {
-      padding: 0.8rem;
-      width: 100%;
-      border: none;
-      border-radius: 5px;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
+  /* Chelsea badge (optional) */
+  .logo{
+    width:60px;
+    margin-bottom:1rem;
+  }
 
-    .password-container {
-      position: relative;
-    }
+  /* Slide-in heading */
+  @keyframes slide{
+    from{transform:translateX(-120%);}
+    to{transform:translateX(120%);}
+  }
+  h2{
+    animation:slide 6s linear infinite alternate;
+    margin:0 0 1rem 0;
+  }
 
-    .toggle-visibility {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1rem;
-    }
+  /* password input with eye icon */
+  .input-wrap{position:relative;}
+  input{
+    width:100%; padding:.9rem 3.1rem .9rem .9rem;
+    border:none; border-radius:6px;
+    font-size:1rem;
+    background:#1e1e1e;   /* dark grey/black box */
+    color:#fff;
+  }
+  .eye{
+    position:absolute; right:10px; top:50%;
+    transform:translateY(-50%);
+    cursor:pointer; user-select:none;
+    font-size:1.1rem; color:#aaa;
+  }
 
-    button {
-      padding: 0.8rem;
-      width: 100%;
-      background-color: #00b140; /* green unlock */
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  /* Chelsea-blue button */
+  button{
+    width:100%; margin-top:1.3rem;
+    padding:.9rem;
+    font-size:1rem; color:#fff;
+    background:#0546A0;          /* deeper Chelsea blue */
+    border:none; border-radius:6px;
+    cursor:pointer; transition:background .2s;
+  }
+  button:hover{background:#0a5dc9;}
 
-    footer {
-      margin-top: 2rem;
-      color: #ffffffaa;
-      font-size: 0.9rem;
-    }
-  </style>
+  /* hidden main area (only shown after correct password) */
+  #main{display:none; padding:2rem;}
+  a{color:#90d8ff;}
+  footer{margin-top:2rem; font-size:.85rem; color:#ffffffaa;}
+</style>
 </head>
 <body>
-  <div class="container">
-    <img src="chelsea-logo.png" alt="Chelsea FC" class="logo" />
-    <h2>Enter Password</h2>
-    <div class="password-container">
-      <input type="password" id="sitePassword" placeholder="Enter site password" />
-      <span class="toggle-visibility" onclick="togglePassword()">👁️</span>
+
+  <!-- login card -->
+  <div class="container" id="login">
+    <!-- optional logo file chelsea-logo.png -->
+    <!-- <img src="chelsea-logo.png" alt="Chelsea FC" class="logo"> -->
+    <!-- sliding heading -->
+    <h2>Password</h2>
+
+    <div class="input-wrap">
+      <input type="password" id="pwd" placeholder="Enter site password">
+      <span class="eye" onclick="toggle()">👁️</span>
     </div>
-    <button onclick="checkPassword()">Unlock</button>
+
+    <button onclick="unlock()">Unlock</button>
   </div>
 
-  <footer>Up The Blues 💙</footer>
+  <!-- private content (kept simple here) -->
+  <div id="main">
+    <h1>Welcome</h1>
+    <p>Your private videos & files are safe here.</p>
+    <a href="videos/Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
+    <footer>Up&nbsp;the&nbsp;Blues&nbsp;💙</footer>
+  </div>
 
-  <!-- Optional Chelsea Anthem -->
-  <!--
-  <audio autoplay loop hidden>
-    <source src="chelsea-anthem.mp3" type="audio/mpeg">
-  </audio>
-  -->
+<script>
+  const correct = "faka@200998";
 
-  <script>
-    const correctPassword = "faka@200998";
-
-    function checkPassword() {
-      const input = document.getElementById("sitePassword").value;
-      if (input === correctPassword) {
-        window.location.href = "private.html"; // Or your private content file
-      } else {
-        alert("Wrong password, try again.");
-      }
+  function unlock(){
+    const val = document.getElementById("pwd").value;
+    if(val === correct){
+      document.getElementById("login").style.display="none";
+      document.getElementById("main").style.display="block";
+    }else{
+      alert("Wrong password!");
     }
-
-    function togglePassword() {
-      const input = document.getElementById("sitePassword");
-      input.type = input.type === "password" ? "text" : "password";
-    }
-  </script>
+  }
+  function toggle(){
+    const inp = document.getElementById("pwd");
+    inp.type = inp.type === "password" ? "text" : "password";
+  }
+</script>
 </body>
 </html>
