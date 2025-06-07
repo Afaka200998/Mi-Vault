@@ -159,33 +159,34 @@
     <button onclick="unlock()">Unlock</button>
   </div>
 
-  <!-- Wrong-password popup -->
+<!-- Wrong-password popup -->
 <div id="popup" style="
   display: none;
   text-align: center;
   background-color: black;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px 20px;
+  border-radius: 12px;
   color: white;
   position: absolute;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
   z-index: 10;
-  width: 80%;
-  max-width: 300px;
+  width: 90%;
+  max-width: 380px;
 ">
-  <img src="luffy.png" alt="Wrong password" style="width: 80px; margin-bottom: 10px;" />
-  <p style="font-size: 18px;">❌ Nice try, Bitch! ❌</p>
+  <img src="luffy.png" alt="Wrong password" style="width: 130px; margin-bottom: 18px;" />
+  <p style="font-size: 20px;">❌ Nice try, Bitch! ❌</p>
   <button onclick="hidePopup()" style="
     background-color: #007bff;
     color: white;
-    padding: 8px 16px;
+    padding: 10px 22px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 16px;
   ">OK</button>
 </div>
 
