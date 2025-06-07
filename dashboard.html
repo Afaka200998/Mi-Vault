@@ -2,48 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi-Vault | Dashboard</title>
 
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Google Fonts & Font-Awesome for icons (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-kuOn0xUF0M+3O1y0GxN1i3xg2q2uE3dpoR5m+5H0vldl8TQ+iu5lV9Dc4kQ6k3XwJ7aDjD1L+38VIR+adJYb3A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
-  <!-- Styles -->
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- —— Dashboard Header —— -->
+  <!-- 🔄 Loading overlay (re-use Zoro) -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="zoro-gif"></div>
+  </div>
+
+  <!-- ── Dashboard Header ── -->
   <header class="dashboard-header">
-    <h1>📁 Mi-Vault</h1>
+    <h1>📂 Mi-Vault</h1>
+
     <div class="user-controls">
       <span id="userNameDisplay">Welcome, User</span>
-      <button id="logoutBtn" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+      <button id="logoutBtn" title="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
     </div>
   </header>
 
-  <!-- —— Folder Grid —— -->
+  <!-- ── Folder Grid ── -->
   <main class="vault-grid" id="vaultGrid">
-    <!-- Folders will be loaded here dynamically -->
+    <!-- Folder items will be injected here by dashboard.js -->
   </main>
 
-  <!-- —— Upload Area —— -->
+  <!-- ── Upload Area ── -->
   <section class="upload-section">
     <label for="fileUpload" class="upload-btn">
-      <i class="fa-solid fa-upload"></i> Upload File
+      <i class="fa-solid fa-upload"></i> Upload Files
     </label>
     <input type="file" id="fileUpload" multiple hidden />
   </section>
 
-  <!-- —— Footer —— -->
+  <!-- ── Footer ── -->
   <footer>
-    <hr class="thin-line"/>
-    <hr class="thin-line"/>
+    <hr class="thin-line" />
+    <hr class="thin-line" />
     <p>© Mi-Vault | Private Vault System</p>
   </footer>
 
-  <!-- Script -->
-  <script src="dashboard.js" defer></script>
+  <!-- ── Dashboard Logic ── -->
+  <script type="module">
+    /* --------------------------------------------------
+       Mi-Vault DASHBOARD.JS
+       -------------------------------------------------- */
+
+    /* ─── ELEMENT REFERENCES ─── */
+    const vaultGrid      = document.getElementById('vaultGrid');
+    const fileUpload     = document.getElementById('fileUpload');
+    const uploadBtnLabel = document.querySelector('.upload-btn');
+    const userNameSpan   = document.getElementById('userNameDisplay');
+    const logoutBtn      = document.getElementById('logoutBtn');
+    const loader         = document.getElementById('loadingOverlay');
+
+    /* ─── SESSION / USER INFO  (mock for now) ─── */
+    const USERNAME = sessionStorage.getItem('miVaultUser') || 'Admin';
+    userNameSpan.textContent = `Welcome, ${USERNAME}`;
+
+    /* ───  Auto-logout timer (reuse from login page) ─── */
+    let logoutTimer;
+    const START_DELAY_MS = 120_000; // 2 min
+
+    function resetLogoutTimer() {
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        alert('⏰ Session expired – logging out.');
+        window.location.href = 'index.html';
+      }, START_DELAY_MS);
+    }
+    // Kick-off timer & keep it alive on activity
+    resetLogoutTimer();
+    ['click', 'keydown', 'touchstart'].forEach(evt =>
+      document.addEventListener(evt, resetLogoutTimer, { passive: true })
+    );
+
+    /* ─── LOGOUT button ─── */
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    });
+
+    /* ───  FILE UPLOAD (local only for now) ─── */
+    uploadBtnLabel.addEventListener('click', () => fileUpload.click());
+    fileUpload.addEventListener('change', handleFiles, false);
+
+    function handleFiles() {
+      const files = Array.from(this.files);
+      if (!files.length) return;
+
+      loader.classList.remove('hidden'); // show Zoro while “uploading”
+
+      // Simulate upload latency
+      setTimeout(() => {
+        files.forEach(addFileToGrid);
+        loader.classList.add('hidden');
+        this.value = ''; // reset input
+      }, 900);
+    }
+
+    /* ───  Render each file as a “folder-item” placeholder ─── */
+    function addFileToGrid(file) {
+      const item = document.createElement('div');
+      item.className = 'folder-item';
+      item.innerHTML = `
+        <div class="folder-icon"></div>
+        <span class="folder-name">${file.name}</span>
+      `;
+      vaultGrid.appendChild(item);
+    }
+
+    /* ───  INITIAL DEMO CONTENT (optional) ─── */
+    const demoFolders = ['Photos', 'Documents', 'Work', 'Anime'];
+    demoFolders.forEach(name => addFileToGrid({ name }));
+  </script>
 </body>
 </html>
