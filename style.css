@@ -1,14 +1,18 @@
-/* Global Reset */
+/* ==========================================================
+   Mi-Vault  |  style.css   (full, merged & tidy)
+   ========================================================== */
+
+/* ---------- 0. Global Reset ---------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body Styling */
+/* ---------- 1. Body Styling ---------- */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #003366; /* Chelsea Blue */
+  background-color: #003366;          /* Chelsea blue */
   color: #f0f0f0;
   min-height: 100vh;
   display: flex;
@@ -16,42 +20,101 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  position: relative;                 /* needed for bottom banner */
+  overflow-x: hidden;
 }
 
-/* Headings */
+/* ---------- 2. Headings & Paragraphs ---------- */
 h1 {
   font-size: 2em;
   margin-bottom: 10px;
   color: #58a6ff;
 }
 
-/* Paragraphs */
-p {
-  font-size: 1.1em;
-}
+p { font-size: 1.1em; }
 
-/* Details Summary */
+/* ---------- 3. Details Summary (optional) ---------- */
 details summary {
   cursor: pointer;
   margin: 20px 0 10px;
   font-weight: bold;
 }
+details ol { padding-left: 20px; }
 
-details ol {
-  padding-left: 20px;
+/* ======================================================
+   > LOGIN PAGE PIECES
+   ====================================================== */
+
+/* ---------- 4. Logo / Zoro Hero (static image) ---------- */
+.login-image, .logo {
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px #00ffff;
+  animation: pulseGlow 3s infinite;
+  margin-bottom: 20px;
 }
 
-/* Modal Styling */
-.modal.hidden {
-  display: none;
+@keyframes pulseGlow {
+  0%   { box-shadow: 0 0 25px #00ffff; }
+  50%  { box-shadow: 0 0 55px #00ffff; }
+  100% { box-shadow: 0 0 25px #00ffff; }
 }
+
+/* ---------- 5. Form Container ---------- */
+.container {
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* ---------- 6. Password Box + Eye ---------- */
+.password-box {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 20px auto;
+}
+
+.password-box input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #444;
+}
+
+/* ---------- 7. Login / Unlock Button ---------- */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  transition: background-color 0.3s ease;
+}
+button:hover { background-color: #0056b3; }
+
+/* ======================================================
+   > MODAL (wrong password)
+   ====================================================== */
+.modal.hidden { display: none; }
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
@@ -69,10 +132,7 @@ details ol {
   max-width: 300px;
 }
 
-.modal-content img {
-  width: 100px;
-  margin-bottom: 20px;
-}
+.modal-content img { width: 100px; margin-bottom: 20px; }
 
 .modal-content p {
   margin: 10px 0;
@@ -91,118 +151,73 @@ details ol {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+.modal-close:hover { background-color: #d32f2f; }
 
-.modal-close:hover {
-  background-color: #d32f2f;
-}
-
-/* Footer Styling */
-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9em;
-  color: #ccc;
-}
-
-/* Loading Overlay */
+/* ======================================================
+   > LOADING OVERLAY (Zoro GIF)
+   ====================================================== */
 .loading-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 9998;
 }
-
-.zoro-gif {
+.zoro-gif{
   width: 120px;
   height: 120px;
-  background-image: url("assets/zoro.gif");
+  background-image: url("zoro.gif");   /* adjust path if inside assets/ */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* Hidden Class */
-.hidden {
-  display: none;
-}
+/* Utility */
+.hidden { display: none !important; }
 
-/* Container */
-.container {
-  text-align: center;
-  padding: 20px;
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Login Image */
-.login-image {
-  width: 100px;
-  margin-bottom: 20px;
-}
-
-/* Password Box */
-.password-box {
-  position: relative;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto 20px auto;
-}
-
-.password-box input {
-  width: 100%;
-  padding: 10px 40px 10px 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-/* Eye Icon */
-.eye-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-/* Login Button */
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-  max-width: 300px;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Separator Line */
+/* ======================================================
+   > FOOTER & SEPARATOR LINE  (for other pages)
+   ====================================================== */
 .separator-line {
   margin-top: 40px;
   width: 90%;
-  border-top: 1px solid white;
+  border-top: 1px solid #ffffff;
 }
 
-/* Animations */
+/* ======================================================
+   > NEW DUAL BLACK-LINE COPYRIGHT BANNER
+   ====================================================== */
+.bottom-lines{
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  font-size: 12px;
+  font-family: monospace;
+  text-align: center;
+}
+.bottom-lines .line{
+  width: 95%;
+  margin: 3px auto;
+  height: 2px;
+  background:black;
+  position: relative;
+}
+.bottom-lines .line span{
+  position: absolute;
+  left:50%;
+  transform:translate(-50%, -50%);
+  top:50%;
+  background:#0056b3;
+  color:#ffd700;
+  padding:0 8px;
+}
+
+/* ======================================================
+   > ANIMATIONS
+   ====================================================== */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
