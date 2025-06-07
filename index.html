@@ -160,10 +160,33 @@
   </div>
 
   <!-- Wrong-password popup -->
-  <div id="popup" style="display: none; text-align: center; background-color: #000000e0; padding: 20px; border-radius: 10px;">
-  <img src="luffy.png" alt="Wrong password" style="width: 120px; margin-bottom: 10px; border-radius: 8px;" />
-  <p style="color: white; font-size: 18px; margin-bottom: 10px;">❌ Nice try, Bitch! ❌</p>
-  <button onclick="hidePopup()" style="padding: 8px 16px; background: #007bff; border: none; color: white; border-radius: 5px; cursor: pointer;">OK</button>
+<div id="popup" style="
+  display: none;
+  text-align: center;
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  width: 80%;
+  max-width: 300px;
+">
+  <img src="luffy.png" alt="Wrong password" style="width: 80px; margin-bottom: 10px;" />
+  <p style="font-size: 18px;">❌ Nice try, Bitch! ❌</p>
+  <button onclick="hidePopup()" style="
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  ">OK</button>
 </div>
 
 <!-- Bottom design -->
