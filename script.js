@@ -1,104 +1,82 @@
-// script.js  –  Mi-Vault
-//-------------------------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { firebaseConfig } from "./firebase-config.js";
 
-/* ---- Firebase imports ---- */
-import { auth, ADMIN_PASSWORD } from "./firebase-config.js";
-import { signInWithEmailAndPassword } from "firebase/auth";
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-/* ---- DOM Elements ---- */
-const emailInput      = document.getElementById("email");
-const passwordInput   = document.getElementById("password");
-const toggleEye       = document.getElementById("toggle-eye");
-const checklistItems  = document.querySelectorAll(".checklist li");
-const loginBtn        = document.querySelector("button");
+// Password toggle (eye icon)
+document.addEventListener("DOMContentLoaded", () => {
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
 
-/* =========================================================
-   1)  Show / hide password
-   ========================================================= */
-toggleEye.addEventListener("click", () => {
-  const hidden = passwordInput.type === "password";
-  passwordInput.type = hidden ? "text" : "password";
-  toggleEye.classList.toggle("active", hidden);
+  togglePassword.addEventListener("click", () => {
+    const type =
+      passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    togglePassword.classList.toggle("fa-eye-slash");
+  });
+
+  // Form submit
+  document.getElementById("vaultForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = "admin@mi.com"; // Hardcoded email
+    const password = document.getElementById("password").value;
+
+    // Show Zoro loading
+    const loading = document.getElementById("zoro-loading");
+    loading.style.display = "block";
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Check if admin
+        if (password === "faka@200998") {
+          window.location.href = "admin-vault.html";
+        } else {
+          window.location.href = "dashboard.html";
+        }
+      })
+      .catch((error) => {
+        loading.style.display = "none";
+        showPopup("Incorrect password. Try again!");
+      });
+  });
 });
 
-/* =========================================================
-   2)  Live password-rule checklist
-   ========================================================= */
-passwordInput.addEventListener("input", () => {
-  const pwd = passwordInput.value;
+// Show popup with Luffy image
+function showPopup(message) {
+  const popup = document.createElement("div");
+  popup.style.position = "fixed";
+  popup.style.top = "50%";
+  popup.style.left = "50%";
+  popup.style.transform = "translate(-50%, -50%)";
+  popup.style.backgroundColor = "#222";
+  popup.style.color = "white";
+  popup.style.padding = "20px";
+  popup.style.borderRadius = "10px";
+  popup.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.5)";
+  popup.style.zIndex = "9999";
+  popup.style.textAlign = "center";
 
-  // Rule 1 – length ≥ 8 + any 3 categories
-  const hasLength  = pwd.length >= 8;
-  const categories = [
-    /[a-z]/i.test(pwd),          // letters
-    /\d/.test(pwd),              // digits
-    /[^a-zA-Z0-9]/.test(pwd)     // specials
-  ].filter(Boolean).length >= 3;
+  const image = document.createElement("img");
+  image.src = "luffy.png";
+  image.alt = "Luffy";
+  image.style.width = "100px";
+  image.style.marginBottom = "10px";
 
-  // Rule 2 – no “admin” & no 4-digit ascending/descending
-  const noAdmin      = !/admin/i.test(pwd);
-  const noAscDesc4   = !/0123|1234|2345|3456|4567|5678|6789|7890|9876|8765|7654|6543|5432|4321|3210/.test(pwd);
+  const text = document.createElement("p");
+  text.innerText = message;
 
-  // Rule 3 – no 4 repeated chars
-  const noRepeats4   = !/(.)\1\1\1/.test(pwd);
+  popup.appendChild(image);
+  popup.appendChild(text);
+  document.body.appendChild(popup);
 
-  checklistItems[0].classList.toggle("valid", hasLength && categories);
-  checklistItems[1].classList.toggle("valid", noAdmin && noAscDesc4);
-  checklistItems[2].classList.toggle("valid", noRepeats4);
-});
-
-/* =========================================================
-   3)  Login / Sign-in handler
-   ========================================================= */
-loginBtn.addEventListener("click", async () => {
-  const email = emailInput.value.trim();
-  const pwd   = passwordInput.value.trim();
-
-  // Basic checks
-  if (!email || !pwd) {
-    alert("Enter both email and password.");
-    return;
-  }
-
-  /* --- Admin back-door --- */
-  if (pwd === ADMIN_PASSWORD) {
-    window.location.href = "admin-vault.html";
-    return;
-  }
-
-  /* --- Validate password rules before hitting Firebase --- */
-  const allRulesPass = Array.from(checklistItems).every(li =>
-    li.classList.contains("valid")
-  );
-  if (!allRulesPass) {
-    showWrongPopup();
-    return;
-  }
-
-  /* --- Firebase Email/Password sign-in --- */
-  try {
-    await signInWithEmailAndPassword(auth, email, pwd);
-
-    // Success → redirect to that user’s vault
-    const vaultFile = `vaults/${pwd}.html`;
-    window.location.href = vaultFile;
-  } catch (err) {
-    console.error("Firebase login error:", err);
-    showWrongPopup();
-  }
-});
-
-/* =========================================================
-   4)  Wrong-password popup helpers
-   ========================================================= */
-function showWrongPopup() {
-  document.getElementById("wrong-popup").style.display = "flex";
+  setTimeout(() => {
+    document.body.removeChild(popup);
+  }, 2500);
 }
-
-function closePopup() {
-  document.getElementById("wrong-popup").style.display = "none";
-}
-
-/* ---------------------------------------------------------
-   That’s it!  –  Freak, you’re ready to roll. 😎
-   --------------------------------------------------------- */
