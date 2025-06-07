@@ -2,130 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Secure Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private</title>
   <style>
     body {
       margin: 0;
-      background: #0e0e0e;
+      background: linear-gradient(to bottom, #034694, #051d40); /* Chelsea Blue */
       font-family: "Segoe UI", sans-serif;
       color: #fff;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      text-align: center;
     }
 
     .container {
-      background: #1c1c1c;
+      background: rgba(0, 0, 0, 0.6);
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+      max-width: 90%;
+      width: 320px;
     }
 
-    h2 {
-      margin-bottom: 1.5rem;
+    .logo {
+      width: 60px;
+      margin-bottom: 1rem;
     }
 
-    .input-group {
-      position: relative;
+    input[type="password"] {
+      padding: 0.8rem;
       width: 100%;
-    }
-
-    input[type="password"], input[type="text"] {
-      padding: 12px 40px 12px 12px;
-      width: 100%;
-      margin-top: 1rem;
-      border-radius: 10px;
       border: none;
-      background: #2b2b2b;
-      color: #fff;
+      border-radius: 5px;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       font-size: 1rem;
     }
 
-    .eye-icon {
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-visibility {
       position: absolute;
-      right: 15px;
-      top: 30px;
+      top: 50%;
+      right: 10px;
       transform: translateY(-50%);
       cursor: pointer;
-      font-size: 1.2rem;
-      color: #aaa;
-      user-select: none;
+      font-size: 1rem;
     }
 
     button {
-      padding: 12px;
+      padding: 0.8rem;
       width: 100%;
-      margin-top: 1.5rem;
-      background: #4caf50;
+      background-color: #00b140; /* green unlock */
       color: white;
-      border: none;
-      border-radius: 10px;
       font-size: 1rem;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #45a049;
-    }
-
-    #mainContent {
-      display: none;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    a {
-      color: #90d8ff;
-      text-decoration: underline;
+    footer {
+      margin-top: 2rem;
+      color: #ffffffaa;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-
-  <!-- Password Box -->
-  <div class="container" id="loginBox">
-    <h2>🔐 Password</h2>
-    <div class="input-group">
-      <input type="password" id="passwordInput" placeholder="Enter site password"/>
-      <span class="eye-icon" onclick="togglePassword()">👁️</span>
+  <div class="container">
+    <img src="chelsea-logo.png" alt="Chelsea FC" class="logo" />
+    <h2>Enter Password</h2>
+    <div class="password-container">
+      <input type="password" id="sitePassword" placeholder="Enter site password" />
+      <span class="toggle-visibility" onclick="togglePassword()">👁️</span>
     </div>
     <button onclick="checkPassword()">Unlock</button>
   </div>
 
-  <!-- Hidden Content -->
-  <div id="mainContent">
-    <h1>👋 Welcome</h1>
-    <p>This is your private content area. Files, videos, anything goes here.</p>
-    <a href="videos/Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
-  </div>
+  <footer>Up The Blues 💙</footer>
+
+  <!-- Optional Chelsea Anthem -->
+  <!--
+  <audio autoplay loop hidden>
+    <source src="chelsea-anthem.mp3" type="audio/mpeg">
+  </audio>
+  -->
 
   <script>
-    function checkPassword() {
-      const correctPassword = "faka@200998";
-      const input = document.getElementById("passwordInput").value;
+    const correctPassword = "faka@200998";
 
+    function checkPassword() {
+      const input = document.getElementById("sitePassword").value;
       if (input === correctPassword) {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
+        window.location.href = "private.html"; // Or your private content file
       } else {
-        alert("❌ Incorrect password");
+        alert("Wrong password, try again.");
       }
     }
 
     function togglePassword() {
-      const input = document.getElementById("passwordInput");
-      if (input.type === "password") {
-        input.type = "text";
-      } else {
-        input.type = "password";
-      }
+      const input = document.getElementById("sitePassword");
+      input.type = input.type === "password" ? "text" : "password";
     }
   </script>
-
 </body>
 </html>
