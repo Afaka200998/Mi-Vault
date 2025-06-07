@@ -7,37 +7,35 @@
 
   <style>
     :root {
-      --chelsea: #0047AB;
-      --cyan: #00FFF0;
+      --chelsea: #0047ab; /* Chelsea-blue */
+      --cyan:    #00fff0;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    /* ----- Global reset ----- */
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--chelsea);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--chelsea);
       color: #fff;
     }
 
+    /* ----- GIF ----- */
     .gif-container {
       display: flex;
       justify-content: center;
       margin-bottom: 24px;
       animation: fadeIn 1.3s ease-out;
     }
-
     .zoro-gif {
       width: 100%;
       max-width: 300px;
-      height: auto;
       border-radius: 10px;
       border: 2px solid var(--cyan);
       box-shadow: 0 0 12px var(--cyan);
@@ -46,27 +44,24 @@
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes glow {
-      from { box-shadow: 0 0 8px var(--cyan); }
-      to { box-shadow: 0 0 26px var(--cyan); }
+      from { box-shadow: 0 0  8px var(--cyan); }
+      to   { box-shadow: 0 0 26px var(--cyan); }
     }
 
+    /* ----- Login box ----- */
     .login-box {
       background: #111;
       padding: 24px 22px;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(0, 0, 0, .6);
       width: 98%;
       max-width: 350px;
     }
 
-    .eye-wrap {
-      position: relative;
-    }
-
+    .eye-wrap { position: relative; }
     .eye-wrap input {
       width: 100%;
       padding: 12px 44px 12px 12px;
@@ -77,7 +72,6 @@
       font-size: 15px;
       outline: none;
     }
-
     .eye-wrap span.eye {
       position: absolute;
       right: 12px;
@@ -99,55 +93,63 @@
       color: #fff;
       background: #0066ff;
       cursor: pointer;
-      transition: background 0.25s;
+      transition: background .25s;
     }
+    button:hover { background: #1a7dff; }
 
-    button:hover {
-      background: #1a7dff;
-    }
-
+    /* ----- Popup (wrong password) ----- */
     .popup {
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: #0047AB;
+      background: var(--chelsea);
       padding: 20px 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(0, 0, 0, .6);
       text-align: center;
       z-index: 999;
       display: none;
     }
-
     .popup-text {
-      font-size: 20px;
-      font-weight: bold;
-      color: white;
+      font: bold 20px 'Segoe UI', sans-serif;
       margin-bottom: 15px;
-      font-family: 'Segoe UI', sans-serif;
     }
-
     .popup button {
-      background: white;
-      color: #0047AB;
+      background: #fff;
+      color: var(--chelsea);
       padding: 8px 18px;
       border-radius: 8px;
       font-weight: 600;
       font-size: 14px;
     }
+    .popup button:hover { background: #ddd; }
 
-    .popup button:hover {
-      background: #ddd;
+    /* ----- Bottom design ----- */
+    .bottom-lines {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      font-style: italic;
+      color: #ccc;
+    }
+    .bottom-lines hr {
+      width: 100%;
+      border: none;
+      border-top: 1px solid #444;
+      margin: 8px auto;
     }
   </style>
 </head>
-<body>
 
+<body>
+  <!-- Animated GIF -->
   <div class="gif-container">
     <img src="zoro.gif" alt="Zoro GIF" class="zoro-gif">
   </div>
 
+  <!-- Login -->
   <div class="login-box">
     <div class="eye-wrap">
       <input type="password" id="pwd" placeholder="Enter site password">
@@ -156,26 +158,32 @@
     <button onclick="unlock()">Unlock</button>
   </div>
 
+  <!-- Wrong-password popup -->
   <div id="popup" class="popup">
-    <p class="popup-text">❌Nice try!! Bitch❌</p>
+    <p class="popup-text">❌ Nice try, Bitch! ❌</p>
     <button onclick="hidePopup()">OK</button>
   </div>
 
+  <!-- Bottom lines -->
+  <div class="bottom-lines">
+    <hr />
+    <p>You're not welcome here</p>
+    <hr />
+  </div>
+
   <script>
-    // Autofocus on password input
+    // Autofocus + simple session guard
     window.onload = () => {
       document.getElementById('pwd').focus();
 
-      // Prevent back button after logout
-      window.history.pushState(null, "", window.location.href);
-      window.onpopstate = () => {
-        window.history.pushState(null, "", window.location.href);
-      };
+      // Disallow back navigation
+      history.pushState(null, "", location.href);
+      window.onpopstate = () => history.pushState(null, "", location.href);
 
-      // Auto logout after 2 minutes
+      // Auto-logout after 2 min (120 000 ms)
       setTimeout(() => {
-        alert("Session expired. Please login again.");
-        window.location.href = "login.html";
+        alert("Session expired. Please log in again.");
+        location.href = "login.html";
       }, 120000);
     };
 
@@ -185,28 +193,17 @@
     }
 
     function unlock() {
-      const PASS = "faka@200998";
-      const entered = document.getElementById('pwd').value;
+      const PASS = "faka@200998";     // ⚠️ Visible in source — change on real server
+      const entered = document.getElementById('pwd').value.trim();
       if (entered === PASS) {
-        window.location.href = "dashboard.html";
+        location.href = "dashboard.html";
       } else {
         showPopup();
       }
     }
 
-    function showPopup() {
-      document.getElementById("popup").style.display = "block";
-    }
-
-    function hidePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
+    function showPopup() { document.getElementById("popup").style.display = "block"; }
+    function hidePopup() { document.getElementById("popup").style.display = "none"; }
   </script>
-<!-- Bottom design -->
-  <div class="bottom-lines">
-    <hr />
-    <p>You're not Welcome here</p>
-    <hr />
-  </div>
 </body>
 </html>
