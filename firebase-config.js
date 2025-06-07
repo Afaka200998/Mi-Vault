@@ -1,4 +1,3 @@
-
 // firebase-config.js
 // Replace these values with your Firebase project settings
 
