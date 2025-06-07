@@ -4,71 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi-Vault</title>
-
-  <!-- —— Fonts & Icons —— -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-HYBQ…" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- —— Main Styles —— -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ——— Loader (Zoro GIF) ——— -->
-  <div id="loader" class="loader hidden">
-    <img src="assets/zoro-loader.gif" alt="Loading…" />
-  </div>
 
-  <!-- ——— Login Card ——— -->
-  <main class="login-card">
-    <h1 class="app-title">Mi-Vault</h1>
+  <!-- Main Content -->
+  <main>
+    <h1>Welcome to Mi-Vault</h1>
+    <p>Please enter your password to access the vault.</p>
 
-    <form id="loginForm" autocomplete="off">
-      <div class="password-box">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          minlength="8"
-          required
-        />
-        <i class="fa-solid fa-eye eye-icon" id="togglePassword" aria-label="Show / hide password"></i>
-      </div>
-
-      <button type="submit" class="login-btn">Unlock Vault</button>
-    </form>
-
-    <!-- — Password rules hint (tap - optional) — -->
-    <details class="rules">
-      <summary>Password rules</summary>
+    <details>
+      <summary>Password Rules</summary>
       <ol>
         <li>At least <strong>8 characters</strong></li>
-        <li>Include <strong>3 of 4</strong>: uppercase, lowercase, number, special char</li>
-        <li>Must <strong>not</strong> contain “123” or “admin” (case-insensitive)</li>
-        <li>No 4 × repeated chars (<code>aaaa</code>, <code>1111</code>) or sequential digits (<code>1234</code>, <code>4321</code>)</li>
+        <li>Include <strong>3 of 4</strong>: uppercase, lowercase, numbers, special characters</li>
+        <li>Must <strong>not</strong> contain your username</li>
+        <li>No 4× repeated chars (e.g., <code>aaaa</code>)</li>
       </ol>
     </details>
   </main>
 
-  <!-- ——— Wrong-password Pop-up (Luffy) ——— -->
-  <div id="errorModal" class="modal hidden" role="alert">
+  <!-- Wrong-password Pop-up (Luffy style) -->
+  <div id="errorModal" class="modal hidden">
     <div class="modal-content">
-      <img src="assets/luffy-alert.png" alt="Wrong password!" />
-      <p>✖️Wrong Bitch! Leave✖️</p>
-      <button id="closeError" class="modal-close">Try again</button>
+      <img src="assets/luffy-alert.png" alt="Luffy Alert" />
+      <p>❌Wrong Bitch! Leave❌</p>
+      <button id="closeError" class="modal-close">Close</button>
     </div>
   </div>
 
-  <!-- ——— Footer ——— -->
+  <!-- Footer -->
   <footer>
     <hr class="thin-line" />
     <hr class="thin-line" />
     <p>© Mi-Vault. All rights reserved.</p>
   </footer>
 
-  <!-- ——— Script ——— -->
+  <!-- Scripts -->
   <script src="script.js" defer></script>
+  <script type="module" src="firebase-config.js"></script>
+
 </body>
 </html>
