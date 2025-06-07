@@ -1,25 +1,32 @@
-// — Import Firebase modules —
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-storage.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+// firebase-config.js
+// Mi-Vault Firebase configuration and helpers
+// ------------------------------------------
+// Replace every “YOUR_…” placeholder with the real values
+// from your Firebase project settings.
 
-// — Your Firebase Configuration —
+import { initializeApp } from "firebase/app";
+import { getAuth }       from "firebase/auth";
+import { getFirestore }  from "firebase/firestore";
+import { getStorage }    from "firebase/storage";
+
+/* ――― 1) CORE CONFIG ――― */
 const firebaseConfig = {
-  apiKey: "AIzaSyCChmtjcC3VN_CNQ06lsBH0a5ZrWbH6teI",
-  authDomain: "mi-site-200998.firebaseapp.com",
-  projectId: "mi-site-200998",
-  storageBucket: "mi-site-200998.appspot.com",
-  messagingSenderId: "337208314860",
-  appId: "1:337208314860:web:a5399ce8eb7b3ea6a30ec9",
-  measurementId: "G-9C0MLQY55S"
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
 };
 
-// — Initialize Firebase —
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const analytics = getAnalytics(app);
+/* ――― 2) INITIALISE APP & SERVICES ――― */
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);        // user / admin login
+const db      = getFirestore(app);   // vault metadata & links
+const storage = getStorage(app);     // file uploads
 
-// — Export to other scripts —
-export { app, db, storage };
+/* ――― 3) ADMIN MASTER PASSWORD (edit if you change it) ――― */
+export const ADMIN_PASSWORD = "Admin@200998";  // case-sensitive
+
+/* ――― 4) EXPORT EVERYTHING NEEDED ELSEWHERE ――― */
+export { app, auth, db, storage };
