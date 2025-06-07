@@ -1,43 +1,50 @@
-<!DOCTYPE html><html lang="en">
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi-Vault | Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Dashboard - Mi-Vault</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="loadingOverlay" class="loading-overlay">
-    <div class="zoro-gif"></div>
-  </div>  <header class="dashboard-header">
-    <h1>📁 Mi-Vault</h1>
-    <div class="user-controls">
-      <span id="userNameDisplay">Welcome, User</span>
-      <button id="logoutBtn" title="Logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </button>
-    </div>
-  </header>  <main class="vault-grid" id="vaultGrid">
-    <!-- Folder items will be injected here -->
-  </main>  <section class="upload-section">
-    <label for="fileUpload" class="upload-btn">
-      <i class="fa-solid fa-upload"></i> Upload Files
-    </label>
-    <input type="file" id="fileUpload" multiple hidden />
-  </section>  <footer>
-    <hr class="thin-line" />
-    <hr class="thin-line" />
-    <p>© Mi-Vault | Private Vault System</p>
-  </footer>  <script type="module">
-    // ---------- Element References ----------
-    const vaultGrid = document.getElementById('vaultGrid');
-    const fileUpload = document.getElementById('fileUpload');
-    const uploadBtnLabel = document.querySelector('label[for="fileUpload"]');
-    const userNameSpan = document.getElementById('userNameDisplay');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const loader = document.getElementById('loadingOverlay');
+  <!-- Loading GIF -->
+  <div id="loading">
+    <img src="Jinwoo.gif" alt="Loading..." />
+  </div>
 
-    // ---------- User Session Info ----------
-    const USERNAME = sessionStorage.getItem('miVaultUser') || 'User';
-    userNameSpan.textContent = `Welcome, ${USERNAME}`;
+  <!-- Dashboard Content -->
+  <div class="container" style="display: none;">
+    <div class="form-box">
+      <h2>Welcome to Mi-Vault Dashboard</h2>
+      <p>Select a vault below to access:</p>
+      <div class="vault-links">
+        <a href="vaults/Muana.html" class="vault-button">Muana's Vault</a>
+        <a href="vaults/Another.html" class="vault-button">Another Vault</a>
+        <!-- Add more vault links here -->
+      </div>
+      <button onclick="goBack()">Logout</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="line"></div>
+    <p>&copy; Mi-Vault. All rights reserved.</p>
+    <div class="line"></div>
+  </footer>
+
+  <script>
+    // Loading screen
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+      }, 1500); // Adjust time as needed
+    };
+
+    // Logout button
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
