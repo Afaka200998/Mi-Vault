@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi‑Vault – Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi-Vault – Login</title>
 
   <!-- Main stylesheet -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 <body>
+
   <!-- 🔄 Loading overlay with local Zoro GIF -->
   <div id="loadingOverlay" class="loading-overlay hidden">
     <div class="zoro-gif"></div>
@@ -17,8 +20,8 @@
 
   <!-- 🔐 Login panel -->
   <main class="container fade-in">
-    <img src="assets/logo.png" alt="Mi‑Vault logo" class="login-image" />
-    <h1>Mi‑Vault</h1>
+    <img src="assets/logo.png" alt="Mi-Vault logo" class="login-image" />
+    <h1>Mi-Vault</h1>
 
     <form id="loginForm" autocomplete="off">
       <div class="password-box">
@@ -28,17 +31,18 @@
           placeholder="Enter your password"
           required
         />
-        <!-- 👁️ Password‑visibility toggle -->
+        <!-- 👁️ Password-visibility toggle -->
         <span id="togglePassword" class="eye-icon" title="Show/Hide">👁️</span>
       </div>
+
       <button type="submit" id="loginBtn">Enter</button>
     </form>
   </main>
 
-  <!-- ❌ Wrong-password Pop-up (Luffy style) -->
+  <!-- ❌ Wrong-password pop-up (Luffy style) -->
   <div id="errorModal" class="modal hidden">
     <div class="modal-content">
-      <img src="luffy.png" alt="Luffy" />
+      <img src="assets/luffy.png" alt="Luffy" />
       <p>❌Wrong Bitch! Leave❌</p>
       <button id="closeError" class="modal-close">OK</button>
     </div>
@@ -48,11 +52,11 @@
   <footer>
     <hr class="thin-line" />
     <hr class="thin-line" />
-    <p>© Mi‑Vault. All rights reserved.</p>
+    <p>© Mi-Vault. All rights reserved.</p>
   </footer>
 
   <!-- 🔥 Firebase config + core logic -->
   <script src="firebase-config.js" type="module"></script>
-  <script src="script.js" type="module"></script>
+  <script src="script.js"        type="module"></script>
 </body>
 </html>
