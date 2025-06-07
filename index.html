@@ -128,10 +128,10 @@
         window.location.href = "dashboard.html";
       }else{
         <!-- Custom Error Modal -->
-<div id="errorModal" style="display:none;" class="modal">
-  <div class="modal-content">
-    <p>🚫 Wrong Bitch – Leave!</p>
-    <button onclick="closeModal()">OK</button>
+  <!-- Custom popup -->
+  <div id="popup" class="popup hidden">
+    <p class="popup-text">❌ Wrong Bitch – Leave</p>
+    <button onclick="hidePopup()">OK</button>
   </div>
 </div>
       }
