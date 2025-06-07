@@ -6,91 +6,151 @@
   <title>Mi-Vault</title>
 
   <style>
-    /* ---------- Global layout ---------- */
-    :root{ --chelsea:#0047AB; --cyan:#00FFF0; }
-    *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      background:var(--chelsea);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      color:#fff;
+    :root {
+      --chelsea: #0047AB;
+      --cyan: #00FFF0;
     }
 
-    /* ---------- Zoro GIF ---------- */
-    .gif-container{
-      display:flex;
-      justify-content:center;
-      margin-bottom:24px;
-      animation:fadeIn 1.3s ease-out;
-    }
-    .zoro-gif{
-      width:100%;
-      max-width:300px;
-      height:auto;
-      border-radius:10px;
-      border:2px solid var(--cyan);
-      display:block;
-      box-shadow:0 0 12px var(--cyan);
-      animation:glow 2.5s infinite alternate;
-    }
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(-20px);}
-      to{opacity:1;transform:translateY(0);}
-    }
-    @keyframes glow{
-      from{box-shadow:0 0 8px var(--cyan);}
-      to{box-shadow:0 0 26px var(--cyan);}
+    * {
+      box-sizing: border-box;
     }
 
-    /* ---------- Login box ---------- */
-    .login-box{
-      background:#111;
-      padding:24px 22px;
-      border-radius:12px;
-      box-shadow:0 0 20px rgba(0,0,0,.6);
-      width:98%;
-      max-width:350px;
-    }
-    .eye-wrap{ position:relative; }
-    .eye-wrap input{
-      width:100%;
-      padding:12px 44px 12px 12px;
-      border:none;
-      border-radius:8px;
-      background:#222;
-      color:#fff;
-      font-size:15px;
-      outline:none;
-    }
-    .eye-wrap span.eye{
-      position:absolute;
-      right:12px; top:50%;
-      transform:translateY(-50%);
-      cursor:pointer; user-select:none;
-      font-size:1.15rem; color:#bbb;
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--chelsea);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
     }
 
-    /* ---------- Unlock button ---------- */
-    button{
-      width:100%;
-      padding:12px;
-      margin-top:14px;
-      border:none;
-      border-radius:8px;
-      font-size:15px;
-      font-weight:600;
-      color:#fff;
-      background:#0066ff;
-      cursor:pointer;
-      transition:background .25s;
+    .gif-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+      animation: fadeIn 1.3s ease-out;
     }
-    button:hover{ background:#1a7dff; }
+
+    .zoro-gif {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+      animation: glow 2.5s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 8px var(--cyan);
+      }
+      to {
+        box-shadow: 0 0 26px var(--cyan);
+      }
+    }
+
+    .login-box {
+      background: #111;
+      padding: 24px 22px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      width: 98%;
+      max-width: 350px;
+    }
+
+    .eye-wrap {
+      position: relative;
+    }
+
+    .eye-wrap input {
+      width: 100%;
+      padding: 12px 44px 12px 12px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .eye-wrap span.eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.15rem;
+      color: #bbb;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: #0066ff;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    button:hover {
+      background: #1a7dff;
+    }
+
+    /* Custom popup */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #0047AB;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      z-index: 999;
+      display: none;
+    }
+
+    .popup-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 15px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .popup button {
+      background: white;
+      color: #0047AB;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .popup button:hover {
+      background: #ddd;
+    }
   </style>
 </head>
 <body>
@@ -109,32 +169,39 @@
     <button onclick="unlock()">Unlock</button>
   </div>
 
-  <script>
-    /* Autofocus on load */
-    window.onload = () => document.getElementById('pwd').focus();
-
-    /* Show / hide password */
-    function togglePwd(){
-      const input = document.getElementById('pwd');
-      input.type = (input.type === 'password') ? 'text' : 'password';
-    }
-
-    /* Very simple client-side check */
-    const PASS = "faka@200998";   // change this to your real password
-    function unlock(){
-      const entered = document.getElementById('pwd').value;
-      if(entered === PASS){
-        // Redirect to real private page or show content
-        window.location.href = "dashboard.html";
-      }else{
-        <!-- Custom Error Modal -->
-  <!-- Custom popup -->
-  <div id="popup" class="popup hidden">
+  <!-- Hidden popup -->
+  <div id="popup" class="popup">
     <p class="popup-text">❌ Wrong Bitch – Leave</p>
     <button onclick="hidePopup()">OK</button>
   </div>
-</div>
+
+  <script>
+    // Autofocus
+    window.onload = () => document.getElementById('pwd').focus();
+
+    // Show/hide password
+    function togglePwd() {
+      const input = document.getElementById('pwd');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    // Unlock logic
+    function unlock() {
+      const PASS = "Admin@200998";
+      const entered = document.getElementById('pwd').value;
+      if (entered === PASS) {
+        window.location.href = "dashboard.html";
+      } else {
+        showPopup();
       }
+    }
+
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function hidePopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
 
