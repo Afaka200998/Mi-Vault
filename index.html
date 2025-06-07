@@ -1,140 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Private Files</title>
-
+  <meta charset="UTF-8">
+  <title>Login</title>
   <style>
     body {
-      margin: 0;
-      background: #034694; /* Chelsea Blue */
-      font-family: "Segoe UI", sans-serif;
-      color: #fff;
+      background-color: #004aad;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      text-align: center;
+      margin: 0;
     }
 
-    .container {
-      background: #000;
-      padding: 2rem;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 330px;
-      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+    .zoro-box {
+      width: 250px;
+      height: 180px;
+      margin-bottom: 30px;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
-    h2 {
-      animation: slide 6s linear infinite alternate;
-      margin-bottom: 1.5rem;
-    }
-
-    @keyframes slide {
-      from { transform: translateX(-120%); }
-      to { transform: translateX(120%); }
-    }
-
-    .input-wrap {
-      position: relative;
+    .zoro-box img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    input {
+    .login-box {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .login-box input {
       width: 100%;
-      padding: 0.9rem 3rem 0.9rem 0.9rem;
+      padding: 10px;
+      margin-bottom: 12px;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
-      background: #1e1e1e;
+      background-color: #222;
       color: #fff;
-      box-sizing: border-box;
+      font-size: 14px;
     }
 
-    .eye {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      user-select: none;
-      font-size: 1.1rem;
-      color: #aaa;
-    }
-
-    button {
+    .login-box button {
       width: 100%;
-      padding: 0.9rem;
-      font-size: 1rem;
-      margin-top: 1rem;
-      background: #0546A0;
-      color: #fff;
+      padding: 10px;
+      background-color: #0056d2;
+      color: white;
       border: none;
-      border-radius: 8px; /* Matches input corner */
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    button:hover {
-      background: #0a5dc9;
-    }
-
-    #main {
-      display: none;
-      padding: 2rem;
-    }
-
-    a {
-      color: #90d8ff;
-    }
-
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #ffffffaa;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container" id="login">
-    <h2>Password</h2>
-
-    <div class="input-wrap">
-      <input type="password" id="pwd" placeholder="Enter site password">
-      <span class="eye" onclick="toggle()">👁️</span>
-    </div>
-
-    <button onclick="unlock()">Unlock</button>
+  <!-- Zoro GIF Box -->
+  <div class="zoro-box">
+    <img src="zoro.gif" alt="Zoro GIF">
   </div>
 
-  <div id="main">
-    <h1>Welcome</h1>
-    <p>Your private videos & files are safe here.</p>
-    <a href="videos/Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
-    <footer>Up&nbsp;the&nbsp;Blues 💙</footer>
+  <!-- Password Form -->
+  <div class="login-box">
+    <input type="password" placeholder="Enter site password">
+    <button>Unlock</button>
   </div>
-
-  <script>
-    const correct = "faka@200998";
-
-    function unlock() {
-      const val = document.getElementById("pwd").value;
-      if (val === correct) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("main").style.display = "block";
-      } else {
-        alert("Wrong Bitch!");
-      }
-    }
-
-    function toggle() {
-      const inp = document.getElementById("pwd");
-      inp.type = inp.type === "password" ? "text" : "password";
-    }
-  </script>
 
 </body>
 </html>
