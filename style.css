@@ -1,6 +1,6 @@
 /* style.css */
 
-/* ---- General Reset ---- */
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -8,122 +8,168 @@
 }
 
 body {
-  background-color: #003366; /* Chelsea blue */
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #034694; /* Chelsea Blue */
+  color: white;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* ---- Centered Container ---- */
+/* Zoro Image on Home Page */
+.zoro-img {
+  width: 160px;
+  margin: 30px auto 10px;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Login Container */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex: 1;
-  padding: 20px;
 }
 
-/* ---- Zoro GIF ---- */
-.zoro-img {
-  max-width: 250px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-/* ---- Login Box ---- */
+/* Login Box */
 .login-box {
   background-color: #111;
-  padding: 30px 25px;
+  padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-  width: 100%;
   max-width: 400px;
-  color: white;
+  width: 90%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
-/* ---- Input + Button ---- */
-.login-box input[type="password"] {
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Password Input */
+.password-box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.password-box input {
   width: 100%;
   padding: 10px 40px 10px 10px;
-  margin-top: 15px;
-  border: none;
+  font-size: 16px;
   border-radius: 5px;
-  font-size: 1rem;
+  border: none;
 }
 
 .eye-icon {
   position: absolute;
   right: 10px;
-  top: 44px;
+  top: 10px;
   cursor: pointer;
-  color: #888;
+  user-select: none;
 }
 
-.eye-icon.active {
-  color: white;
-}
-
-.password-box {
-  position: relative;
+/* Login Button */
+button {
   width: 100%;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 12px;
   background-color: #007bff;
   border: none;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-box button:hover {
+button:hover {
   background-color: #0056b3;
 }
 
-/* ---- Password Checklist ---- */
+/* Password Checklist */
 .checklist {
   list-style: none;
+  font-size: 14px;
   margin-top: 15px;
 }
 
 .checklist li {
-  font-size: 0.9rem;
-  padding-left: 1.2em;
   margin-bottom: 8px;
-  position: relative;
+  color: #ccc;
 }
 
-.checklist li::before {
-  content: "⛔";
-  position: absolute;
-  left: 0;
-  top: 0;
+.checklist li.valid {
+  color: #4caf50;
 }
 
-.checklist li.valid::before {
-  content: "✅";
-  color: limegreen;
-}
-
-/* ---- Footer Separator Lines ---- */
+/* Footer */
 footer {
   text-align: center;
-  color: white;
-  margin: 20px 0;
+  padding: 15px 0;
 }
 
 footer .line {
   height: 1px;
-  background: white;
-  margin: 5px auto;
+  background: #fff;
   width: 80%;
-  opacity: 0.4;
+  margin: 0 auto;
+  opacity: 0.3;
+}
+
+footer p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #ddd;
+}
+
+/* Wrong Password Popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.88);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: crimson;
+  animation: shake 0.4s ease;
+  max-width: 300px;
+}
+
+.popup-content img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.popup-content button {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Shake animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
 }
