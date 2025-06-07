@@ -1,77 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Private Folder</title>
+  <meta charset="UTF-8">
+  <title>MiFile Upload</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
   <style>
     body {
-      background-color: #111;
+      background: #121212;
       color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .box {
-      background-color: #1e1e1e;
-      padding: 30px 25px;
-      border-radius: 16px;
-      box-shadow: 0 0 10px #000;
+      font-family: Arial, sans-serif;
       text-align: center;
-      width: 90%;
-      max-width: 350px;
+      padding-top: 50px;
     }
-
-    h2 {
-      margin-bottom: 12px;
+    input[type="file"] {
+      margin: 20px;
     }
-
-    p {
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      text-align: left;
-    }
-
-    li {
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-    }
-
-    li img {
-      width: 20px;
-      margin-right: 10px;
-    }
-
-    a {
-      color: #4fc3f7;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
+    progress {
+      width: 80%;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>Welcome, Admin 🫴</h2>
-    <p>Photos, Videos, Documents below:</p>
-    <ul>
-      <li><img src="https://img.icons8.com/ios/50/ffffff/image.png"/><a href="Photos/">Photos</a></li>
-      <li><img src="https://img.icons8.com/ios/50/ffffff/video.png"/><a href="Videos/">Videos</a></li>
-      <li><img src="https://img.icons8.com/ios/50/ffffff/document--v1.png"/><a href="Documents/">Documents</a></li>
-    </ul>
-  </div>
+  <h2>Welcome Admin 👋</h2>
+  <p>Upload your photos, videos, or documents</p>
+
+  <input type="file" id="fileInput" />
+  <br>
+  <button onclick="uploadFile()">Upload</button>
+  <br><br>
+  <progress value="0" max="100" id="progressBar"></progress>
+  <p id="statusText"></p>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCChmtjoC3VN_CNQO6lsBH0a5ZrWbH6teI",
+      authDomain: "mi-site-200998.firebaseapp.com",
+      projectId: "mi-site-200998",
+      storageBucket: "mi-site-200998.appspot.com",
+      messagingSenderId: "337208314860",
+      appId: "1:337208314860:web:a5399ce8eb7b3ea6a30ec9",
+      measurementId: "G-9QGM0LQYS5"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
+    function uploadFile() {
+      const file = document.getElementById("fileInput").files[0];
+      if (!file) {
+        alert("Please select a file first.");
+        return;
+      }
+
+      const storageRef = storage.ref("uploads/" + file.name);
+      const uploadTask = storageRef.put(file);
+
+      uploadTask.on("state_changed",
+        function (snapshot) {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          document.getElementById("progressBar").value = progress;
+          document.getElementById("statusText").innerText = "Uploading... " + Math.round(progress) + "%";
+        },
+        function (error) {
+          alert("Upload failed: " + error);
+        },
+        function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
+            document.getElementById("statusText").innerHTML =
+              "Upload complete!<br><a href='" + url + "' target='_blank' style='color: #4caf50;'>View File</a>";
+          });
+        }
+      );
+    }
+  </script>
 </body>
 </html>
