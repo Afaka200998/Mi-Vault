@@ -24,7 +24,7 @@ document.getElementById("signup-btn").addEventListener("click", function (e) {
 });
 
 // Login function
-document.getElementById("login-btn").addEventListener("click", function (e) {
+document.getElementById("login-btn").addEventListener("click", (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -32,9 +32,19 @@ document.getElementById("login-btn").addEventListener("click", function (e) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alert("Login successful!");
-      window.location.href = "dashboard.html"; // ✅ Redirect to dashboard
+      window.location.href = "dashboard.html";
     })
     .catch((error) => {
       alert("Error: " + error.message);
     });
+});
+
+// Toggle password visibility
+document.getElementById("togglePassword").addEventListener("click", function () {
+  const passwordInput = document.getElementById("password");
+  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+  passwordInput.setAttribute("type", type);  // ✅ fixed line
+
+  // Optional: change icon style
+  this.textContent = type === "password" ? "👁️" : "🙈";
 });
