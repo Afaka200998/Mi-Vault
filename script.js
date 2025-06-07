@@ -1,8 +1,16 @@
 function checkPassword() {
-  const input = document.getElementById("password").value;
-  if (input === "Admin@200998") {
-    window.location.href = "dashboard.html";
+  const input = document.getElementById("pass").value;
+  if (input === "faka@200998") {
+    window.location.href = "dashboard.html"; // or your protected page
   } else {
-    document.getElementById("error").textContent = "Wrong Password!";
+    showError();
   }
+}
+
+function showError() {
+  document.getElementById("popup").classList.remove("hidden");
+}
+
+function hidePopup() {
+  document.getElementById("popup").classList.add("hidden");
 }
