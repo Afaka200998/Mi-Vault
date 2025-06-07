@@ -1,22 +1,40 @@
-function checkPassword() {
-  const input = document.getElementById("pwd").value;
-  if (input === "faka@200998") {
-    window.location.href = "dashboard.html";
-  } else {
-    showError();
-  }
-}
+// Import the functions you need from Firebase SDK
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "./firebase-config.js";
 
-function showError() {
-  document.getElementById("popup").style.display = "block";
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-function hidePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+// Signup function
+document.getElementById("signup-btn").addEventListener("click", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-// Auto logout after 2 minutes (120000 milliseconds)
-setTimeout(() => {
-  alert("Session expired. Please login again.");
-  window.location.href = "login.html";
-}, 120000);
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("Signup successful!");
+      window.location.href = "dashboard.html"; // ✅ Redirect to dashboard
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    });
+});
+
+// Login function
+document.getElementById("login-btn").addEventListener("click", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("Login successful!");
+      window.location.href = "dashboard.html"; // ✅ Redirect to dashboard
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    });
+});
