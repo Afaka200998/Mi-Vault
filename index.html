@@ -45,23 +45,13 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes glow {
-      from {
-        box-shadow: 0 0 8px var(--cyan);
-      }
-      to {
-        box-shadow: 0 0 26px var(--cyan);
-      }
+      from { box-shadow: 0 0 8px var(--cyan); }
+      to { box-shadow: 0 0 26px var(--cyan); }
     }
 
     .login-box {
@@ -116,7 +106,6 @@
       background: #1a7dff;
     }
 
-    /* Custom popup */
     .popup {
       position: fixed;
       top: 50%;
@@ -155,12 +144,10 @@
 </head>
 <body>
 
-  <!-- Zoro GIF -->
   <div class="gif-container">
     <img src="zoro.gif" alt="Zoro GIF" class="zoro-gif">
   </div>
 
-  <!-- Password form -->
   <div class="login-box">
     <div class="eye-wrap">
       <input type="password" id="pwd" placeholder="Enter site password">
@@ -169,23 +156,34 @@
     <button onclick="unlock()">Unlock</button>
   </div>
 
-  <!-- Hidden popup -->
   <div id="popup" class="popup">
     <p class="popup-text">❌Nice try!! Bitch❌</p>
     <button onclick="hidePopup()">OK</button>
   </div>
 
   <script>
-    // Autofocus
-    window.onload = () => document.getElementById('pwd').focus();
+    // Autofocus on password input
+    window.onload = () => {
+      document.getElementById('pwd').focus();
 
-    // Show/hide password
+      // Prevent back button after logout
+      window.history.pushState(null, "", window.location.href);
+      window.onpopstate = () => {
+        window.history.pushState(null, "", window.location.href);
+      };
+
+      // Auto logout after 2 minutes
+      setTimeout(() => {
+        alert("Session expired. Please login again.");
+        window.location.href = "login.html";
+      }, 120000);
+    };
+
     function togglePwd() {
       const input = document.getElementById('pwd');
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Unlock logic
     function unlock() {
       const PASS = "faka@200998";
       const entered = document.getElementById('pwd').value;
