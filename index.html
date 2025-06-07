@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi-Vault – Login</title>
+  <title>Mi-Vault - Login</title>
 
-  <!-- Main stylesheet -->
+  <!-- 🌐 Main stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Favicon (optional) -->
+  <!-- 🔖 Favicon (optional) -->
   <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 <body>
 
-  <!-- 🔄 Loading overlay with local Zoro GIF -->
-  <div id="loadingOverlay" class="loading-overlay hidden">
+  <!-- 🌀 Loading overlay with local Zoro GIF -->
+  <div id="loadingOverlay" class="loading-overlay">
     <div class="zoro-gif"></div>
   </div>
 
   <!-- 🔐 Login panel -->
   <main class="container fade-in">
-    <img src="assets/logo.png" alt="Mi-Vault logo" class="login-image" />
+    <img src="assets/logo.png" alt="Mi-Vault logo" />
     <h1>Mi-Vault</h1>
 
     <form id="loginForm" autocomplete="off">
@@ -32,9 +32,8 @@
           required
         />
         <!-- 👁️ Password-visibility toggle -->
-        <span id="togglePassword" class="eye-icon" title="Show/Hide">👁️</span>
+        <span id="togglePassword" class="eye-icon">👁️</span>
       </div>
-
       <button type="submit" id="loginBtn">Enter</button>
     </form>
   </main>
@@ -44,11 +43,11 @@
     <div class="modal-content">
       <img src="assets/luffy.png" alt="Luffy" />
       <p>❌Wrong Bitch! Leave❌</p>
-      <button id="closeError" class="modal-close">OK</button>
+      <button id="closeError" class="modal-close">Close</button>
     </div>
   </div>
 
-  <!-- 📏 Bottom separators + centered footer -->
+  <!-- ✏️ Bottom separators + centered footer -->
   <footer>
     <hr class="thin-line" />
     <hr class="thin-line" />
@@ -57,6 +56,6 @@
 
   <!-- 🔥 Firebase config + core logic -->
   <script src="firebase-config.js" type="module"></script>
-  <script src="script.js"        type="module"></script>
+  <script src="script.js" type="module"></script>
 </body>
 </html>
