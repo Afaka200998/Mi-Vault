@@ -1,62 +1,60 @@
-/* Root and Global Styles */
-:root {
-  --chelsea-blue: #014aad;
-  --vault-box-bg: #111;
-  --vault-text-color: white;
-  --button-bg: #007bff;
-  --button-hover-bg: #0056b3;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--chelsea-blue);
-  color: var(--vault-text-color);
-  display: flex;
-  flex-direction: column;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #001f3f; /* Chelsea blue */
+  color: white;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Vault Form Box */
+/* Form box styling */
 .form-box {
-  background-color: var(--vault-box-bg);
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: 40px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.form-box h2 {
-  margin-top: 0;
-  margin-bottom: 20px;
+  background-color: #012a63;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+  width: 350px;
   text-align: center;
 }
 
-.form-box input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
+.form-box h2 {
+  margin-bottom: 20px;
 }
 
-/* Button */
+/* Input styling */
+.form-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Button styling */
 .form-box button {
-  background-color: var(--button-bg);
+  background-color: #007bff;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
-  font-size: 16px;
+  margin-top: 10px;
 }
 
 .form-box button:hover {
-  background-color: var(--button-hover-bg);
+  background-color: #0056b3;
 }
 
 /* Password box and eye icon */
@@ -66,7 +64,6 @@ body {
 }
 
 .password-box input {
-  width: 100%;
   padding-right: 40px;
 }
 
@@ -79,20 +76,27 @@ body {
   color: #aaa;
 }
 
-/* Zoro loading GIF */
-#zoro-loading {
-  display: block;
-  margin: 30px auto;
-  width: 80px;
-  height: 80px;
+/* Error popup styling */
+.error-popup {
+  background-color: rgba(255, 0, 0, 0.2);
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #ff4c4c;
 }
 
-/* Bottom footer section */
-.bottom-lines {
-  margin-top: auto;
-  text-align: center;
-  padding: 15px;
-  color: #ccc;
-  font-size: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.error-popup img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .form-box {
+    width: 90%;
+  }
 }
