@@ -1,43 +1,12 @@
-// Firebase Config & Initialization (assume you've already added Firebase config above this)
+// DOM Elements const errorModal = document.getElementById('errorModal'); const closeError = document.getElementById('closeError');
 
-// --- SIGNUP FUNCTION ---
-document.getElementById("signup-btn").addEventListener("click", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+// Simulated correct password const correctPassword = "Admin@200998";
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Signup successful!");
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Error: " + error.message);
-    });
-});
+// Trigger check on page load or button click (you can change this as needed) window.addEventListener("load", () => { const userPassword = prompt("Enter your password:");
 
-// --- LOGIN FUNCTION ---
-document.getElementById("login-btn").addEventListener("click", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+if (userPassword !== correctPassword) { showError(); } else { console.log("Access granted!"); } });
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Login successful!");
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Error: " + error.message);
-    });
-});
+// Show error modal function showError() { errorModal.classList.remove("hidden"); }
 
-// --- TOGGLE PASSWORD VISIBILITY ---
-document.getElementById("togglePassword").addEventListener("click", function () {
-  const passwordInput = document.getElementById("password");
-  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-  passwordInput.setAttribute("type", type);
+// Hide error modal closeError.addEventListener("click", () => { errorModal.classList.add("hidden"); });
 
-  // Toggle the icon between 👁️ and 🙈
-  this.textContent = type === "password" ? "👁️" : "🙈";
-});
