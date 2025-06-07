@@ -3,39 +3,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi-Vault</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Loading Screen -->
-  <div id="loader" class="popup" style="display: flex;">
-    <div class="popup-content" style="background: none; box-shadow: none;">
+  <!-- ─── Loading Screen (Jinwoo) ─────────────────────────── -->
+  <div id="loader" class="popup" style="display:flex;">
+    <div class="popup-content" style="background:none;box-shadow:none;">
       <img src="Jinwoo.gif" alt="Loading..." />
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="container" style="display:none;" id="main-content">
+  <!-- ─── Main Content ────────────────────────────────────── -->
+  <div class="container" id="main-content" style="display:none;">
+    <!-- Zoro GIF header -->
     <img src="Zoro.gif" alt="Welcome" class="zoro-img" />
 
+    <!-- Login Box -->
     <div class="login-box">
-      <h2>Enter Your Password</h2>
+      <h2>Enter Your Email &amp; Password</h2>
+
+      <!-- Email -->
+      <input type="email" id="email" placeholder="Enter email" required />
+
+      <!-- Password -->
       <div class="password-box">
         <input type="password" id="password" placeholder="Enter password" />
         <span class="eye-icon" id="toggle-eye">👁️</span>
       </div>
+
+      <!-- Checklist -->
       <ul class="checklist">
-        <li>✔ At least 8 characters with lower or upper letters, digits, and special symbols</li>
-        <li>✖ The password cannot contain ascending/descending numbers or the word "admin"</li>
-        <li>✖ The password cannot have any character repeated 4 times in a row</li>
+        <li>✔ At least 8 characters with 3 categories (letters, digits, symbols)</li>
+        <li>✖ Cannot contain “admin” or 4-digit sequences like 1234 / 4321</li>
+        <li>✖ Cannot repeat any character 4 times (aaaa / 1111)</li>
       </ul>
+
+      <!-- Submit -->
       <button>Enter Vault</button>
     </div>
   </div>
 
-  <!-- Wrong Password Popup -->
+  <!-- ─── Wrong-Password Popup (Luffy) ────────────────────── -->
   <div id="wrong-popup" class="popup">
     <div class="popup-content">
       <img src="luffy.png" alt="Error" />
@@ -44,31 +55,29 @@
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- ─── Footer (no year) ────────────────────────────────── -->
   <footer>
     <div class="line"></div>
     <p>&copy; Mi-Vault. All rights reserved.</p>
     <div class="line"></div>
   </footer>
 
-  <!-- Firebase SDK -->
+  <!-- ─── Firebase SDKs ───────────────────────────────────── -->
   <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
-  <!-- Main Scripts -->
+  <!-- ─── App Scripts (config + main) ─────────────────────── -->
   <script type="module">
-    import './firebase-config.js';
-    import './script.js';
+    import "./firebase-config.js";
+    import "./script.js";
   </script>
 
-  <!-- Hide Loader on Load -->
+  <!-- ─── Hide Loader after load ──────────────────────────── -->
   <script>
     window.onload = () => {
       document.getElementById("loader").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
     };
   </script>
-
 </body>
 </html>
