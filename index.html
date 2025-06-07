@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi-Vault</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi‑Vault – Login</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 </head>
 <body>
+  <!-- 🔄 Loading overlay with local Zoro GIF -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="zoro-gif"></div>
+  </div>
 
-  <!-- Main Content -->
-  <main>
-    <h1>Welcome to Mi-Vault</h1>
-    <p>Please enter your password to access the vault.</p>
+  <!-- 🔐 Login panel -->
+  <main class="container fade-in">
+    <img src="assets/logo.png" alt="Mi‑Vault logo" class="login-image" />
+    <h1>Mi‑Vault</h1>
 
-    <details>
-      <summary>Password Rules</summary>
-      <ol>
-        <li>At least <strong>8 characters</strong></li>
-        <li>Include <strong>3 of 4</strong>: uppercase, lowercase, numbers, special characters</li>
-        <li>Must <strong>not</strong> contain your username</li>
-        <li>No 4× repeated chars (e.g., <code>aaaa</code>)</li>
-      </ol>
-    </details>
+    <form id="loginForm" autocomplete="off">
+      <div class="password-box">
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Enter your password"
+          required
+        />
+        <!-- 👁️ Password‑visibility toggle -->
+        <span id="togglePassword" class="eye-icon" title="Show/Hide">👁️</span>
+      </div>
+      <button type="submit" id="loginBtn">Enter</button>
+    </form>
   </main>
 
-  <!-- Wrong-password Pop-up (Luffy style) -->
+  <!-- ❌ Wrong-password Pop-up (Luffy style) -->
   <div id="errorModal" class="modal hidden">
     <div class="modal-content">
       <img src="assets/luffy-alert.png" alt="Luffy Alert" />
       <p>❌Wrong Bitch! Leave❌</p>
-      <button id="closeError" class="modal-close">Close</button>
+      <button id="closeError" class="modal-close">OK</button>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- 📏 Bottom separators + centered footer -->
   <footer>
     <hr class="thin-line" />
     <hr class="thin-line" />
-    <p>© Mi-Vault. All rights reserved.</p>
+    <p>© Mi‑Vault. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
-  <script type="module" src="firebase-config.js"></script>
-
+  <!-- 🔥 Firebase config + core logic -->
+  <script src="firebase-config.js" type="module"></script>
+  <script src="script.js" type="module"></script>
 </body>
 </html>
