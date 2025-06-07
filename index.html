@@ -21,30 +21,13 @@
     <!-- Zoro GIF header -->
     <img src="zoro.gif" alt="Welcome" class="zoro-img" />
 
-    <!-- Login Box -->
-    <div class="login-box">
-      <h2>Enter Your Email &amp; Password</h2>
-
-      <!-- Email -->
-      <input type="email" id="email" placeholder="Enter email" required />
-
-      <!-- Password -->
-      <div class="password-box">
-        <input type="password" id="password" placeholder="Enter password" />
-        <span class="eye-icon" id="toggle-eye">👁️</span>
-      </div>
-
-      <!-- Checklist -->
-      <ul class="checklist">
-        <li>✔ At least 8 characters with 3 categories (letters, digits, symbols)</li>
-        <li>✖ Cannot contain “admin” or 4-digit sequences like 1234 / 4321</li>
-        <li>✖ Cannot repeat any character 4 times (aaaa / 1111)</li>
-      </ul>
-
-      <!-- Submit -->
-      <button>Enter Vault</button>
-    </div>
-  </div>
+     <!-- ── Main Login Box ───────────────────────────── -->  <div class="container" id="main-content" style="display:none;">
+    <div class="zoro-frame">
+      <img src="zoro.gif" alt="Zoro" />
+    </div><div class="form-box">
+  <input type="password" id="password" placeholder="Enter password" onkeydown="if(event.key==='Enter') login();" />
+  <button onclick="login()">Unlock</button>
+</div>
 
   <!-- ─── Wrong-Password Popup (Luffy) ────────────────────── -->
   <div id="wrong-popup" class="popup">
