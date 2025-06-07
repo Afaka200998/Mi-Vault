@@ -1,0 +1,73 @@
+<!-- vaults/Muana.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Vault - Mi-Vault</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .vault-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .vault-box {
+      background: #111;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .vault-box h1 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .vault-box p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .vault-box button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .vault-box button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="vault-container">
+    <div class="vault-box">
+      <h1>Welcome to Your Vault</h1>
+      <p>This space is private and secure.</p>
+      <button onclick="goBack()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "../index.html";
+    }
+  </script>
+  
+<footer>
+  <div class="line"></div>
+  <p>&copy; 2025 Mi-Vault. All rights reserved.</p>
+  <div class="line"></div>
+</footer>
+</body>
+</html>
