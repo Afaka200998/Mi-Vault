@@ -1,86 +1,55 @@
-/* ======================================================
-   Mi-Vault  |  script.js  –  Core Login + Session Logic
-   ====================================================== */
-"use strict";
+// script.js
 
-/* ---------- 1. Element Handles ---------- */
-const loginForm       = document.getElementById("loginForm");
-const passwordInput   = document.getElementById("passwordInput");
-const toggleBtn       = document.getElementById("togglePassword");
-const errorModal      = document.getElementById("errorModal");
-const closeErrorBtn   = document.getElementById("closeError");
-const loader          = document.getElementById("loadingOverlay");
+// Password validation logic
+const passwordInput = document.getElementById("password");
+const toggleEye     = document.getElementById("toggle-eye");
+const checklist     = document.querySelectorAll(".checklist li");
 
-/* ---------- 2. Config ---------- */
-const CORRECT_PWD  = "faka@200998";   // ← change anytime
-const USERNAME     = "Admin";         // for greeting on dashboard
-
-/* ---------- 3. Password Visibility Toggle ---------- */
-toggleBtn.addEventListener("click", () => {
-  const isPwd = passwordInput.type === "password";
-  passwordInput.type      = isPwd ? "text" : "password";
-  toggleBtn.textContent   = isPwd ? "🙈" : "👁️";
+// Toggle show/hide password
+toggleEye.addEventListener("click", () => {
+  const isHidden = passwordInput.type === "password";
+  passwordInput.type = isHidden ? "text" : "password";
+  toggleEye.classList.toggle("active");
 });
 
-/* ---------- 4. Login Submit Handler ---------- */
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  showLoader(true);
-
-  /* Simulated 1 s processing delay — replace with Firebase call later */
-  setTimeout(() => {
-    const entered = passwordInput.value.trim();
-
-    if (entered === CORRECT_PWD) {
-      // ✅ Success
-      sessionStorage.setItem("miVaultUser", USERNAME);
-      startSessionTimer();                    // kick off auto-logout
-      window.location.href = "dashboard.html";
-    } else {
-      // ❌ Wrong password
-      showError();
-    }
-
-    showLoader(false);
-  }, 1000);
-});
-
-/* ---------- 5. Error Modal Helpers ---------- */
-function showError() {
-  errorModal.classList.remove("hidden");
-  passwordInput.value = "";
-  passwordInput.focus();
-}
-closeErrorBtn.addEventListener("click", () => {
-  errorModal.classList.add("hidden");
-});
-
-/* ---------- 6. Loader Helpers ---------- */
-function showLoader(show = true) {
-  if (show) loader.classList.remove("hidden");
-  else      loader.classList.add("hidden");
+// Helper functions
+function hasThreeCategories(pwd) {
+  let count = 0;
+  if (/[a-z]/i.test(pwd)) count++;
+  if (/\d/.test(pwd)) count++;
+  if (/[^a-zA-Z0-9]/.test(pwd)) count++;
+  return pwd.length >= 8 && count >= 3;
 }
 
-/* Hide loader automatically after 4 s if still visible (failsafe) */
-setTimeout(() => loader.classList.add("hidden"), 4000);
+function containsForbidden(pwd) {
+  const lowerPwd = pwd.toLowerCase();
+  if (lowerPwd.includes("admin")) return true;
 
-/* ---------- 7. Auto-Logout Timer (2 minutes) ---------- */
-let logoutTimer;
-function startSessionTimer() {
-  resetLogoutTimer();
-  ["click", "keydown", "touchstart"].forEach(evt =>
-    document.addEventListener(evt, resetLogoutTimer, { passive: true })
-  );
-}
-function resetLogoutTimer() {
-  clearTimeout(logoutTimer);
-  logoutTimer = setTimeout(() => {
-    alert("⏰ Session expired – logging out.");
-    window.location.href = "index.html";
-  }, 120_000); // 120 000 ms = 2 min
+  const asc = "0123456789";
+  const desc = "9876543210";
+
+  for (let i = 0; i <= pwd.length - 4; i++) {
+    const chunk = pwd.substring(i, i + 4);
+    if (asc.includes(chunk) || desc.includes(chunk)) return true;
+  }
+
+  return false;
 }
 
-/* ---------- 8. Ensure loader hidden on initial page render ---------- */
-window.addEventListener("load", () => {
-  loader.classList.add("hidden");
+function hasRepeats(pwd) {
+  return /(.)\1\1\1/.test(pwd);
+}
+
+// Real-time validation feedback
+passwordInput.addEventListener("input", () => {
+  const pwd = passwordInput.value;
+
+  // Rule 1: length + any 3 categories
+  checklist[0].className = hasThreeCategories(pwd) ? "valid" : "invalid";
+
+  // Rule 2: no "admin", no 4-digit sequence
+  checklist[1].className = !containsForbidden(pwd) ? "valid" : "invalid";
+
+  // Rule 3: no 4 repeated chars
+  checklist[2].className = !hasRepeats(pwd) ? "valid" : "invalid";
 });
