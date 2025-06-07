@@ -127,9 +127,13 @@
         // Redirect to real private page or show content
         window.location.href = "dashboard.html";
       }else{
-        alert("❌ Wrong Bitch – leave.");
-        document.getElementById('pwd').value = "";
-        document.getElementById('pwd').focus();
+        <!-- Custom Error Modal -->
+<div id="errorModal" style="display:none;" class="modal">
+  <div class="modal-content">
+    <p>🚫 Wrong Bitch – Leave!</p>
+    <button onclick="closeModal()">OK</button>
+  </div>
+</div>
       }
     }
   </script>
