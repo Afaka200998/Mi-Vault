@@ -1,103 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi-Vault</title>
+
   <style>
-    .gif-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  animation: fadeIn 2s ease-in-out;
-}
+    /* ---------- Global layout ---------- */
+    :root{ --chelsea:#0047AB; --cyan:#00FFF0; }
+    *{ box-sizing:border-box; }
 
-.zoro-gif {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 10px;
-  border: 2px solid cyan;
-  display: block;
-  margin: 0 auto;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-    body {
-      background-color: #004aad;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--chelsea);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      color:#fff;
     }
 
-    .zoro-box {
-      width: 250px;
-      height: 180px;
-      margin-bottom: 30px;
-      border: 2px solid #00ffcc;
-      border-radius: 10px;
-      overflow: hidden;
+    /* ---------- Zoro GIF ---------- */
+    .gif-container{
+      display:flex;
+      justify-content:center;
+      margin-bottom:24px;
+      animation:fadeIn 1.3s ease-out;
+    }
+    .zoro-gif{
+      width:100%;
+      max-width:300px;
+      height:auto;
+      border-radius:10px;
+      border:2px solid var(--cyan);
+      display:block;
+      box-shadow:0 0 12px var(--cyan);
+      animation:glow 2.5s infinite alternate;
+    }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(-20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    @keyframes glow{
+      from{box-shadow:0 0 8px var(--cyan);}
+      to{box-shadow:0 0 26px var(--cyan);}
     }
 
-    .zoro-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    /* ---------- Login box ---------- */
+    .login-box{
+      background:#111;
+      padding:24px 22px;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(0,0,0,.6);
+      width:98%;
+      max-width:350px;
+    }
+    .eye-wrap{ position:relative; }
+    .eye-wrap input{
+      width:100%;
+      padding:12px 44px 12px 12px;
+      border:none;
+      border-radius:8px;
+      background:#222;
+      color:#fff;
+      font-size:15px;
+      outline:none;
+    }
+    .eye-wrap span.eye{
+      position:absolute;
+      right:12px; top:50%;
+      transform:translateY(-50%);
+      cursor:pointer; user-select:none;
+      font-size:1.15rem; color:#bbb;
     }
 
-    .login-box {
-      background-color: #111;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    /* ---------- Unlock button ---------- */
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:14px;
+      border:none;
+      border-radius:8px;
+      font-size:15px;
+      font-weight:600;
+      color:#fff;
+      background:#0066ff;
+      cursor:pointer;
+      transition:background .25s;
     }
-
-    .login-box input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border: none;
-      border-radius: 8px;
-      background-color: #222;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .login-box button {
-      width: 100%;
-      padding: 10px;
-      background-color: #0056d2;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 14px;
-    }
+    button:hover{ background:#1a7dff; }
   </style>
 </head>
 <body>
 
-  <!-- Zoro GIF Box -->
+  <!-- Zoro GIF -->
   <div class="gif-container">
-  <img src="zoro.gif" alt="Zoro GIF" class="zoro-gif" />
-</div>
-
-  <!-- Password Form -->
-  <div class="login-box">
-    <input type="password" placeholder="Enter site password">
-    <button>Unlock</button>
+    <img src="zoro.gif" alt="Zoro GIF" class="zoro-gif">
   </div>
+
+  <!-- Password form -->
+  <div class="login-box">
+    <div class="eye-wrap">
+      <input type="password" id="pwd" placeholder="Enter site password">
+      <span class="eye" onclick="togglePwd()">👁️</span>
+    </div>
+    <button onclick="unlock()">Unlock</button>
+  </div>
+
+  <script>
+    /* Autofocus on load */
+    window.onload = () => document.getElementById('pwd').focus();
+
+    /* Show / hide password */
+    function togglePwd(){
+      const input = document.getElementById('pwd');
+      input.type = (input.type === 'password') ? 'text' : 'password';
+    }
+
+    /* Very simple client-side check */
+    const PASS = "faka@200998";   // change this to your real password
+    function unlock(){
+      const entered = document.getElementById('pwd').value;
+      if(entered === PASS){
+        // Redirect to real private page or show content
+        alert("🔓 Correct! (add your redirect here)");
+        // example: window.location.href = "dashboard.html";
+      }else{
+        alert("❌ Wrong Bitch – leave.");
+        document.getElementById('pwd').value = "";
+        document.getElementById('pwd').focus();
+      }
+    }
+  </script>
 
 </body>
 </html>
