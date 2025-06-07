@@ -1,55 +1,75 @@
 // script.js
 
-// Password validation logic
-const passwordInput = document.getElementById("password");
-const toggleEye     = document.getElementById("toggle-eye");
-const checklist     = document.querySelectorAll(".checklist li");
+import { ADMIN_PASSWORD } from './firebase-config.js';
 
 // Toggle show/hide password
-toggleEye.addEventListener("click", () => {
-  const isHidden = passwordInput.type === "password";
-  passwordInput.type = isHidden ? "text" : "password";
-  toggleEye.classList.toggle("active");
+document.getElementById("toggle-eye").addEventListener("click", () => {
+  const passInput = document.getElementById("password");
+  if (passInput.type === "password") {
+    passInput.type = "text";
+  } else {
+    passInput.type = "password";
+  }
+  document.getElementById("toggle-eye").classList.toggle("active");
 });
 
-// Helper functions
-function hasThreeCategories(pwd) {
-  let count = 0;
-  if (/[a-z]/i.test(pwd)) count++;
-  if (/\d/.test(pwd)) count++;
-  if (/[^a-zA-Z0-9]/.test(pwd)) count++;
-  return pwd.length >= 8 && count >= 3;
-}
+// Password checklist validation
+const passwordInput = document.getElementById("password");
+const checklistItems = document.querySelectorAll(".checklist li");
 
-function containsForbidden(pwd) {
-  const lowerPwd = pwd.toLowerCase();
-  if (lowerPwd.includes("admin")) return true;
-
-  const asc = "0123456789";
-  const desc = "9876543210";
-
-  for (let i = 0; i <= pwd.length - 4; i++) {
-    const chunk = pwd.substring(i, i + 4);
-    if (asc.includes(chunk) || desc.includes(chunk)) return true;
-  }
-
-  return false;
-}
-
-function hasRepeats(pwd) {
-  return /(.)\1\1\1/.test(pwd);
-}
-
-// Real-time validation feedback
 passwordInput.addEventListener("input", () => {
   const pwd = passwordInput.value;
 
-  // Rule 1: length + any 3 categories
-  checklist[0].className = hasThreeCategories(pwd) ? "valid" : "invalid";
+  const hasLength = pwd.length >= 8;
+  const has3Types = [
+    /[a-z]/i.test(pwd),      // letters (either case)
+    /\d/.test(pwd),          // digits
+    /[!@#$%^&*(),.?":{}|<>]/.test(pwd) // specials
+  ].filter(Boolean).length >= 3;
 
-  // Rule 2: no "admin", no 4-digit sequence
-  checklist[1].className = !containsForbidden(pwd) ? "valid" : "invalid";
+  const noAdmin = !/admin/i.test(pwd);
+  const noAscOrDesc = !/0123|1234|2345|3456|4567|5678|6789|7890|9876|8765|7654|6543|5432|4321|3210/.test(pwd);
+  const noRepeat = !/(.)\1\1\1/.test(pwd);
 
-  // Rule 3: no 4 repeated chars
-  checklist[2].className = !hasRepeats(pwd) ? "valid" : "invalid";
+  checklistItems[0].classList.toggle("valid", hasLength && has3Types);
+  checklistItems[1].classList.toggle("valid", noAdmin && noAscOrDesc);
+  checklistItems[2].classList.toggle("valid", noRepeat);
 });
+
+// Login button action
+document.querySelector("button").addEventListener("click", () => {
+  const pwd = passwordInput.value.trim();
+
+  if (pwd === "") {
+    alert("Enter a password");
+    return;
+  }
+
+  if (pwd === ADMIN_PASSWORD) {
+    // Admin access - no restrictions
+    window.location.href = "admin-vault.html";
+    return;
+  }
+
+  // Check all checklist rules
+  const allValid = Array.from(checklistItems).every(li => li.classList.contains("valid"));
+
+  if (!allValid) {
+    showWrongPopup();
+    return;
+  }
+
+  // User Vault Access
+  const userVault = `vaults/${pwd}.html`;
+  window.location.href = userVault;
+});
+
+// Show error popup
+function showWrongPopup() {
+  document.getElementById("wrong-popup").style.display = "flex";
+}
+
+// Close popup
+function closePopup() {
+  document.getElementById("wrong-popup").style.display = "none";
+}
