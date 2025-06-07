@@ -126,20 +126,21 @@
 
     /* ----- Bottom design ----- */
     .bottom-lines {
-      width: 100%;
-      max-width: 500px;
-      margin-top: 40px;
-      text-align: center;
-      font-size: 14px;
-      font-style: italic;
-      color: #ccc;
-    }
-    .bottom-lines hr {
-      width: 100%;
-      border: none;
-      border-top: 1px solid #444;
-      margin: 8px auto;
-    }
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.bottom-lines hr {
+  border: none;
+  border-top: 2px solid black;
+  margin: 5px auto;
+  width: 100%;
+}
   </style>
 </head>
 
@@ -164,12 +165,12 @@
     <button onclick="hidePopup()">OK</button>
   </div>
 
-  <!-- Bottom lines -->
-  <div class="bottom-lines">
-    <hr />
-    <p>🔑Password or Leave</p>
-    <hr />
-  </div>
+<!-- Bottom design -->
+<div class="bottom-lines">
+  <hr />
+  <p>🔑Password</p>
+  <hr />
+</div>
 
   <script>
     // Autofocus + simple session guard
