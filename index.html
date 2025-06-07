@@ -1,78 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MiFile Upload</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Private Storage</title>
   <style>
     body {
+      margin: 0;
+      font-family: sans-serif;
       background: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
       text-align: center;
-      padding-top: 50px;
     }
-    input[type="file"] {
-      margin: 20px;
+
+    input {
+      padding: 10px;
+      width: 100%;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 6px;
     }
-    progress {
-      width: 80%;
+
+    button {
+      margin-top: 1rem;
+      padding: 10px;
+      width: 100%;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    a {
+      color: #80d4ff;
+      display: block;
+      margin: 10px 0;
+      word-break: break-all;
     }
   </style>
 </head>
 <body>
-  <h2>Welcome Admin 👋</h2>
-  <p>Upload your photos, videos, or documents</p>
 
-  <input type="file" id="fileInput" />
-  <br>
-  <button onclick="uploadFile()">Upload</button>
-  <br><br>
-  <progress value="0" max="100" id="progressBar"></progress>
-  <p id="statusText"></p>
+  <div class="box" id="loginBox">
+    <h2>Password Required</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password" />
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <div class="box hidden" id="contentBox">
+    <h2>Private Files</h2>
+    <p>Only visible after password</p>
+    <a href="Screenrecorder-2025-06-07-11-50-02-782.mp4" download>📹 Download My Video</a>
+    <!-- Add more links here -->
+  </div>
 
   <script>
-    // Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCChmtjoC3VN_CNQO6lsBH0a5ZrWbH6teI",
-      authDomain: "mi-site-200998.firebaseapp.com",
-      projectId: "mi-site-200998",
-      storageBucket: "mi-site-200998.appspot.com",
-      messagingSenderId: "337208314860",
-      appId: "1:337208314860:web:a5399ce8eb7b3ea6a30ec9",
-      measurementId: "G-9QGM0LQYS5"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
-
-    function uploadFile() {
-      const file = document.getElementById("fileInput").files[0];
-      if (!file) {
-        alert("Please select a file first.");
-        return;
+    function checkPassword() {
+      const correct = "Admin@200998";
+      const input = document.getElementById("passwordInput").value;
+      if (input === correct) {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("contentBox").classList.remove("hidden");
+      } else {
+        alert("Incorrect password!");
       }
-
-      const storageRef = storage.ref("uploads/" + file.name);
-      const uploadTask = storageRef.put(file);
-
-      uploadTask.on("state_changed",
-        function (snapshot) {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          document.getElementById("progressBar").value = progress;
-          document.getElementById("statusText").innerText = "Uploading... " + Math.round(progress) + "%";
-        },
-        function (error) {
-          alert("Upload failed: " + error);
-        },
-        function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (url) {
-            document.getElementById("statusText").innerHTML =
-              "Upload complete!<br><a href='" + url + "' target='_blank' style='color: #4caf50;'>View File</a>";
-          });
-        }
-      );
     }
   </script>
+
 </body>
 </html>
