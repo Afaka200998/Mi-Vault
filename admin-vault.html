@@ -1,0 +1,68 @@
+<!-- admin-vault.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Vault - Mi-Vault</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .admin-box {
+      background: #111;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .admin-box h1 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .admin-box p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .admin-box button {
+      padding: 10px 20px;
+      background: crimson;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .admin-box button:hover {
+      background: #a40000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <div class="admin-box">
+      <h1>Welcome Admin</h1>
+      <p>You can manage all user vaults from here.</p>
+      <button onclick="goBack()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
