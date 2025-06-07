@@ -1,61 +1,74 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi-Vault - Login</title>
-
-  <!-- 🌐 Main stylesheet -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi-Vault</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- 🔖 Favicon (optional) -->
-  <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 <body>
 
-  <!-- 🌀 Loading overlay with local Zoro GIF -->
-  <div id="loadingOverlay" class="loading-overlay">
-    <div class="zoro-gif"></div>
-  </div>
-
-  <!-- 🔐 Login panel -->
-  <main class="container fade-in">
-    <img src="assets/logo.png" alt="Mi-Vault logo" />
-    <h1>Mi-Vault</h1>
-
-    <form id="loginForm" autocomplete="off">
-      <div class="password-box">
-        <input
-          type="password"
-          id="passwordInput"
-          placeholder="Enter your password"
-          required
-        />
-        <!-- 👁️ Password-visibility toggle -->
-        <span id="togglePassword" class="eye-icon">👁️</span>
-      </div>
-      <button type="submit" id="loginBtn">Enter</button>
-    </form>
-  </main>
-
-  <!-- ❌ Wrong-password pop-up (Luffy style) -->
-  <div id="errorModal" class="modal hidden">
-    <div class="modal-content">
-      <img src="assets/luffy.png" alt="Luffy" />
-      <p>❌Wrong Bitch! Leave❌</p>
-      <button id="closeError" class="modal-close">Close</button>
+  <!-- Loading Screen -->
+  <div id="loader" class="popup" style="display: flex;">
+    <div class="popup-content" style="background: none; box-shadow: none;">
+      <img src="Jinwoo.gif" alt="Loading..." />
     </div>
   </div>
 
-  <!-- ✏️ Bottom separators + centered footer -->
+  <!-- Main Content -->
+  <div class="container" style="display:none;" id="main-content">
+    <img src="Zoro.gif" alt="Welcome" class="zoro-img" />
+
+    <div class="login-box">
+      <h2>Enter Your Password</h2>
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Enter password" />
+        <span class="eye-icon" id="toggle-eye">👁️</span>
+      </div>
+      <ul class="checklist">
+        <li>✔ At least 8 characters with lower or upper letters, digits, and special symbols</li>
+        <li>✖ The password cannot contain ascending/descending numbers or the word "admin"</li>
+        <li>✖ The password cannot have any character repeated 4 times in a row</li>
+      </ul>
+      <button>Enter Vault</button>
+    </div>
+  </div>
+
+  <!-- Wrong Password Popup -->
+  <div id="wrong-popup" class="popup">
+    <div class="popup-content">
+      <img src="luffy.png" alt="Error" />
+      <p>✖️Wrong Bitch! Leave✖️</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    <hr class="thin-line" />
-    <hr class="thin-line" />
-    <p>© Mi-Vault. All rights reserved.</p>
+    <div class="line"></div>
+    <p>&copy; Mi-Vault. All rights reserved.</p>
+    <div class="line"></div>
   </footer>
 
-  <!-- 🔥 Firebase config + core logic -->
-  <script src="firebase-config.js" type="module"></script>
-  <script src="script.js" type="module"></script>
+  <!-- Firebase SDK -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
+  <!-- Main Scripts -->
+  <script type="module">
+    import './firebase-config.js';
+    import './script.js';
+  </script>
+
+  <!-- Hide Loader on Load -->
+  <script>
+    window.onload = () => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("main-content").style.display = "flex";
+    };
+  </script>
+
 </body>
 </html>
