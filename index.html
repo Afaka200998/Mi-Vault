@@ -1,156 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi-Vault</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi-Vault</title>
 
-  <style>
-    :root {
-      --chelsea: #0047ab; /* Chelsea-blue */
-      --cyan:    #00fff0;
-    }
-
-    /* ----- Global reset ----- */
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--chelsea);
-      color: #fff;
-    }
-
-    /* ----- GIF ----- */
-    .gif-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 24px;
-      animation: fadeIn 1.3s ease-out;
-    }
-    .zoro-gif {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
-      border: 2px solid var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-      animation: glow 2.5s infinite alternate;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0  8px var(--cyan); }
-      to   { box-shadow: 0 0 26px var(--cyan); }
-    }
-
-    /* ----- Login box ----- */
-    .login-box {
-      background: #111;
-      padding: 24px 22px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, .6);
-      width: 98%;
-      max-width: 350px;
-    }
-
-    .eye-wrap { position: relative; }
-    .eye-wrap input {
-      width: 100%;
-      padding: 12px 44px 12px 12px;
-      border: none;
-      border-radius: 8px;
-      background: #222;
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-    }
-    .eye-wrap span.eye {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1.15rem;
-      color: #bbb;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      background: #0066ff;
-      cursor: pointer;
-      transition: background .25s;
-    }
-    button:hover { background: #1a7dff; }
-
-    /* ----- Popup (wrong password) ----- */
-    .popup {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--chelsea);
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, .6);
-      text-align: center;
-      z-index: 999;
-      display: none;
-    }
-    .popup-text {
-      font: bold 20px 'Segoe UI', sans-serif;
-      margin-bottom: 15px;
-    }
-    .popup button {
-      background: #fff;
-      color: var(--chelsea);
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .popup button:hover { background: #ddd; }
-
-    /* ----- Bottom design ----- */
-    .bottom-lines {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  color: #ccc;
-  font-size: 14px;
-  font-style: italic;
+<style>
+/* ---------- theme ---------- */
+:root{
+  --chelsea:#0047ab;      /* Chelsea blue */
+  --cyan:#00fff0;
 }
-
-.bottom-lines hr {
-  border: none;
-  border-top: 2px solid black;
-  margin: 5px auto;
-  width: 100%;
+/* ---------- reset ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+/* ---------- body ---------- */
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--chelsea);
+  color:#fff;
 }
-  </style>
+/* ---------- hero GIF ---------- */
+.gif-container{animation:fadeIn 1.3s ease-out;margin-bottom:24px}
+.zoro-gif{
+  width:100%;max-width:300px;border-radius:10px;
+  border:2px solid var(--cyan);
+  box-shadow:0 0 12px var(--cyan);
+  animation:glow 2.5s infinite alternate;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{from{box-shadow:0 0 8px var(--cyan)}to{box-shadow:0 0 26px var(--cyan)}}
+/* ---------- login box ---------- */
+.login-box{
+  background:#111;padding:24px 22px;border-radius:12px;
+  box-shadow:0 0 20px rgba(0,0,0,.6);
+  width:98%;max-width:350px;
+}
+.eye-wrap{position:relative}
+.eye-wrap input{
+  width:100%;padding:12px 44px 12px 12px;border:none;border-radius:8px;
+  background:#222;color:#fff;font-size:15px;outline:none;
+}
+.eye-wrap .eye{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  cursor:pointer;font-size:1.15rem;color:#bbb;
+}
+button{
+  width:100%;padding:12px;margin-top:14px;border:none;border-radius:8px;
+  font-size:15px;font-weight:600;color:#fff;background:#0066ff;cursor:pointer;
+  transition:background .25s;
+}
+button:hover{background:#1a7dff}
+/* ---------- popup ---------- */
+#popup{
+  display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#000;padding:30px 20px;border-radius:12px;color:#fff;z-index:999;
+  width:90%;max-width:380px;text-align:center;box-shadow:0 0 18px rgba(0,0,0,.7);
+}
+#popup img{width:130px;margin-bottom:18px;border-radius:10px}
+#popup button{
+  background:#007bff;color:#fff;padding:10px 22px;border:none;border-radius:6px;
+  cursor:pointer;margin-top:15px;font-size:16px;
+}
+#popup button:hover{background:#1a7dff}
+/* ---------- bottom lines ---------- */
+.bottom-lines{
+  position:fixed;bottom:20px;width:100%;text-align:center;
+  color:#ccc;font-size:14px;font-style:italic;
+}
+.bottom-lines hr{
+  border:none;border-top:2px solid #000;margin:5px auto;width:100%;
+}
+</style>
 </head>
 
 <body>
-  <!-- Animated GIF -->
+  <!-- glowing GIF -->
   <div class="gif-container">
     <img src="zoro.gif" alt="Zoro GIF" class="zoro-gif">
   </div>
 
-  <!-- Login -->
+  <!-- login card -->
   <div class="login-box">
     <div class="eye-wrap">
       <input type="password" id="pwd" placeholder="Enter site password">
@@ -159,77 +93,58 @@
     <button onclick="unlock()">Unlock</button>
   </div>
 
-<!-- Wrong-password popup -->
-<div id="popup" style="
-  display: none;
-  text-align: center;
-  background-color: black;
-  padding: 30px 20px;
-  border-radius: 12px;
-  color: white;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
-  z-index: 10;
-  width: 90%;
-  max-width: 380px;
-">
-  <img src="luffy.png" alt="Wrong password" style="width: 130px; margin-bottom: 18px;" />
-  <p style="font-size: 20px;">❌ Nice try, Bitch! ❌</p>
-  <button onclick="hidePopup()" style="
-    background-color: #007bff;
-    color: white;
-    padding: 10px 22px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 16px;
-  ">OK</button>
-</div>
+  <!-- wrong-password popup -->
+  <div id="popup">
+    <img src="luffy.png" alt="Wrong password">
+    <p style="font-size:20px">❌ Nice try, Bitch! ❌</p>
+    <button onclick="hidePopup()">OK</button>
+  </div>
 
-<!-- Bottom design -->
-<div class="bottom-lines">
-  <hr />
-  <p>🔑Password or Leave</p>
-  <hr />
-</div>
+  <!-- bottom banner -->
+  <div class="bottom-lines">
+    <hr />
+    <p>🔑 Password or Leave!! Bye</p>
+    <hr />
+  </div>
 
-  <script>
-    // Autofocus + simple session guard
-    window.onload = () => {
-      document.getElementById('pwd').focus();
-
-      // Disallow back navigation
-      history.pushState(null, "", location.href);
-      window.onpopstate = () => history.pushState(null, "", location.href);
-
-      // Auto-logout after 2 min (120 000 ms)
-      setTimeout(() => {
-        alert("Session expired. Please log in again.");
-        location.href = "login.html";
-      }, 120000);
-    };
-
-    function togglePwd() {
-      const input = document.getElementById('pwd');
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
-
-    function unlock() {
-      const PASS = "faka@200998";     // ⚠️ Visible in source — change on real server
-      const entered = document.getElementById('pwd').value.trim();
-      if (entered === PASS) {
-        location.href = "dashboard.html";
-      } else {
-        showPopup();
-      }
-    }
-
-    function showPopup() { document.getElementById("popup").style.display = "block"; }
-    function hidePopup() { document.getElementById("popup").style.display = "none"; }
-  </script>
+<script>
+/* ----------------  focus & back-button guard  ---------------- */
+window.onload = () => {
+  document.getElementById('pwd').focus();
+  history.pushState(null,"",location.href);
+  window.onpopstate = () => history.pushState(null,"",location.href);
+  resetTimer();           // start inactivity timer
+};
+/* ----------------  eye toggle  ---------------- */
+function togglePwd(){
+  const inp=document.getElementById('pwd');
+  inp.type = inp.type==='password' ? 'text' : 'password';
+}
+/* ----------------  unlock logic  ---------------- */
+function unlock(){
+  const PASS="faka@200998";          // ⚠ Plain-text: for demo only
+  const entered=document.getElementById('pwd').value.trim();
+  if(entered===PASS){
+    location.href="dashboard.html";  // proceed to your vault page
+  }else{
+    showPopup();
+  }
+}
+/* ----------------  popup helpers  ---------------- */
+function showPopup(){document.getElementById('popup').style.display='block'}
+function hidePopup(){document.getElementById('popup').style.display='none'}
+/* ----------------  inactivity auto-lock  ---------------- */
+let timeoutID;
+function lockSite(){
+  /* simply reload this page so user lands back on login */
+  location.reload();
+}
+function resetTimer(){
+  clearTimeout(timeoutID);
+  timeoutID = setTimeout(lockSite, 120000); // 2 minutes
+}
+document.onclick = resetTimer;
+document.onkeypress = resetTimer;
+</script>
 </body>
 </html>
